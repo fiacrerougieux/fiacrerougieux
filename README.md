@@ -1,6 +1,6 @@
 # enerviz.net
 ## Welcome
-This is the repo of my site *[enerviz.net](enerviz.net)*
+This is the repo of my site http://enerviz.net.
 
 ![Solar Cell](SolarCell.PNG)
 
