@@ -3,7 +3,7 @@
 This is the repo of my site *[enerviz.net](enerviz.net)*
 
 ## Overall description
-![Solar Cell](/SolarCell.png)
+![Solar Cell](SolarCell.png)
 The website describes the very basics of solar cell operation by using javascript based animations. Each html page references three javascript scripts, the main script is specific to the current html page. The main script uses two supporting scripts called engine and utilities. All the js scripts are written in p5.js. Shoutout to The Coding Train for explaining how to use p5.js in an awesome way.
 
 ## Decscription of the supporting scripts
