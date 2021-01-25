@@ -6,8 +6,6 @@ let electrons = [];
 function setup() {
   initialise();
   reset();
-  let button = select('#start');
-  button.mousePressed(reset);
 }
 
 function reset() {
@@ -22,8 +20,11 @@ function reset() {
 }
 
 function draw() {
+  if(frameCount % 60 === 0){
+    reset();
+  }
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,1,0,0,0,0);
+  displayLegend(1,1,1,0,0,0,0);
   electronHoleInteraction(0.008,2.5,0.07);
   for (let i = 0; i < photons.length; i++) {
     photons[i].move();
