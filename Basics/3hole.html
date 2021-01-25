@@ -5,29 +5,34 @@
 	<link href="http://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-  <a href="index.html" class="active">Home</a>
-  <a href="Basics/1electron.html">Basics</a>
-  <a href="Recombination/1radiativerecombination.html">Recombination Loss</a>
-  <a href="Resistive/1donor.html">Resistive Loss</a>
-  <a href="about.html">About</a>
+  <a href="../index.html">Home</a>
+  <a href="1electron.html" class="active">Basics</a>
+  <a href="../Resistive/1donor.html">Resistive Loss</a>
+  <a href="../about.html">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
+      <div class="w3-padding-16">
+      <div class="progress w3-small w3-light-grey w3-round">
+        <div class="w3-container w3-round w3-green w3-small insideprogress" style="width:29%">29%</div>
+      </div>
+    </div>
 </div>
 <script src="topnav.js"> </script>
 <section class="box-dark">
-<h2>This is a solar cell.</h2>
-<script type="text/javascript" src="utilities.js"></script>
-<script src="index.js"></script>
-<script type="text/javascript" src="engine.js"></script>
+<h2>This is a hole.</h2>
+<script type="text/javascript" src="../utilities.js"></script>
+<script src="3hole.js"></script>
+<script type="text/javascript" src="../engine.js"></script>
 <div id="canvasForHTML"></div>
-<h2>How does it work? Go next to see how!</h2>
+<h2>It is a missing electron and it has a positive charge.</h2>
 </section>
-<a href="Basics/1electron.html" class="next">Next &raquo;</a>
+<a href="2electrons.html" class="previous">&laquo; Previous</a>
+<a href="4holes.html" class="next">Next &raquo;</a>
 </body>
 </html>

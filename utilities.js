@@ -77,6 +77,52 @@ function electronHoleInteraction(interactionStrength,interactionLength,recombina
   }
 }
 
+// Electron Donor interaction
+function electronDonorInteraction(interactionStrength) {
+    for (let j = electrons.length-1; j >= 0; j--) {
+        for (let i = donors.length-1; i >= 0; i--) {
+            let dx = donors[i].x - electrons[j].x;
+            let dy = donors[i].y - electrons[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = donors[i].crossSection + electrons[j].diameter;
+            if ((distance < minDist)&&(electrons[i].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = electrons[j].x + cos(angle) * minDist;
+                let targetY = electrons[j].y + sin(angle) * minDist;
+                let ax = (targetX - donors[i].x) * interactionStrength;
+                let ay = (targetY - donors[i].y) * interactionStrength;
+                electrons[j].vx += ax;
+                electrons[j].vy += ay;
+                electrons[j].x += electrons[i].vx;
+                electrons[j].y += electrons[i].vy;
+            }
+        }
+    }
+}
+
+// Hole Acceptor interaction
+function holeAcceptorInteraction(interactionStrength) {
+    for (let j = holes.length-1; j >= 0; j--) {
+        for (let i = acceptors.length-1; i >= 0; i--) {
+            let dx = acceptors[i].x - holes[j].x;
+            let dy = acceptors[i].y - holes[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = acceptors[i].crossSection + holes[j].diameter;
+            if ((distance < minDist)&&(holes[i].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = holes[j].x + cos(angle) * minDist;
+                let targetY = holes[j].y + sin(angle) * minDist;
+                let ax = (targetX - acceptors[i].x) * interactionStrength;
+                let ay = (targetY - acceptors[i].y) * interactionStrength;
+                holes[j].vx += ax;
+                holes[j].vy += ay;
+                holes[j].x += holes[i].vx;
+                holes[j].y += holes[i].vy;
+            }
+        }
+    }
+}
+
 // Cell elements
 function displayCellElements(dipsplayAbsorber,dipsplayElectronMembrane,dipsplayHoleMembrane,dipsplayMetal) {
     stroke(255,0);

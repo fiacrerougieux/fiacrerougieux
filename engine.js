@@ -93,6 +93,8 @@ class Electron extends Carrier {
         if ((holeMembrane==1)&&(this.y>bottomSide-9)&&(this.x<rightSide-20)) {this.vy=-this.vy,this.y=bottomSide-9}
         if ((this.y>=bottomSide+10)&&(this.x < rightSide - 5)) {this.y = bottomSide+11+random(2), this.x = rightSide-10+random(2), this.vy = 0, this.vx = 0}
     }
+    if (this.vx>4) {this.vx = 4}
+    if (this.vy>4) {this.vy = 4}
     this.x += this.vx;
     this.y += this.vy;
   }
@@ -144,8 +146,14 @@ class Hole extends Carrier {
     if ((electronMembrane==1)&&(this.y<topSide+9)) {this.vy=-this.vy,this.y=topSide+9}
     if ((holeMembrane==1)&&(this.y>bottomSide-2)) {this.vy=0}
     if ((holeMembrane==1)&&(this.y>bottomSide-2)&&(this.vx>4)) {this.vx = 1}
+    if (this.vx>4) {this.vx = 4}
+    if (this.vy>4) {this.vy = 4}
     this.x += this.vx;
     this.y += this.vy;
+  }
+  slow() {
+    if ((holeMembrane==1)&&(this.y>bottomSide-2)&&(this.vx>0.2)) {this.vy=0,this.vx=this.vx/2}
+    if ((holeMembrane==1)&&(this.y>bottomSide-2)&&(this.vx<-0.2)) {this.vy=0,this.vx=this.vx/2}
   }
   display() {
     stroke(255,0);
@@ -182,4 +190,44 @@ class Fan {
         endShape();
         pop();
     }
+}
+
+// Impurity class
+class Impurity {
+  constructor(xinit,yinit) {
+    this.x = xinit;
+    this.y = yinit;
+    this.diameter = 15;
+    this.crossSection = 55;
+  }
+}
+
+// Donor class
+class Donor extends Impurity { 
+  constructor(xinit,yinit) {
+    super(xinit,yinit);
+  }
+  display() {
+    stroke(255,60);
+    fill(255,50);
+    ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+    stroke(255);
+    fill(holeColor);
+    ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+  }
+}
+
+// Acceptor class
+class Acceptor extends Impurity { 
+  constructor(xinit,yinit) {
+    super(xinit,yinit);
+  }
+  display() {
+    stroke(255,60);
+    fill(255,50);
+    ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+    stroke(255);
+    fill(electronColor);
+    ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+  }
 }
