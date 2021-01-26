@@ -122,8 +122,8 @@ class Electron extends Carrier {
     if (this.hot==1) {
       stroke(255,0);
       fill(255,255,0);
-      ellipse(this.x, this.y, this.diameter+15, this.diameter+15);
-      if(frameCount % 240 === 0){
+      ellipse(this.x, this.y, this.diameter+5, this.diameter+3);
+      if(frameCount % 120 === 0){
         for (let l = 0; l < 10; l++) { 
           pvx = random(-1,1);
           pvy = random(-1,1);

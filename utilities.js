@@ -29,7 +29,7 @@ function initialise() {
     rotationSpeed = 0;
 }
 
-function electronHoleElectronAuger(interactionLength,recombinationProbabilityFraction) {
+function electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction) {
 // Electron Hole interaction
   for (let j = electrons.length-1; j >= 0; j--) {
     for (let i = holes.length-1; i >= 0; i--) {
@@ -41,6 +41,21 @@ function electronHoleElectronAuger(interactionLength,recombinationProbabilityFra
         let dy2 = holes[i].y - electrons[k].y;
         let distance2 = sqrt(dx2 * dx2 + dy2 * dy2);
         let minDist = interactionLength*(holes[i].diameter + electrons[j].diameter);
+        if ((distance1 < minDist)&&(electrons[i].y<bottomSide-4)) {
+            let angle = atan2(dy1, dx1);
+            let targetX = electrons[j].x + cos(angle) * minDist;
+            let targetY = electrons[j].y + sin(angle) * minDist;
+            let ax = (targetX - holes[i].x) * interactionStrength;
+            let ay = (targetY - holes[i].y) * interactionStrength;
+            electrons[j].vx += ax;
+            electrons[j].vy += ay;
+            holes[i].vx -= ax;
+            holes[i].vy -= ay;
+            electrons[j].x += electrons[i].vx;
+            electrons[j].y += electrons[i].vy;
+            holes[i].x += holes[i].vx;
+            holes[i].y += holes[i].vy;
+          }
         if ((distance1 < minDist)&&(distance2 < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[i].y>bottomSide+10))) {
           if ((electrons[k].y<bottomSide)) {
             electrons[k].hot = 1;
@@ -56,8 +71,9 @@ function electronHoleElectronAuger(interactionLength,recombinationProbabilityFra
   }
 }
 
-function electronHoleInteraction(interactionStrength,interactionLength,recombinationProbabilityFraction) {
-// Electron Hole interaction
+function electronHoleInteraction(interactionStrength,interactionLength,recombinationProbabilityFraction,radiativeAugerRatio=1) {
+let rd = random(1);
+if(rd<radiativeAugerRatio) {
   for (let j = electrons.length-1; j >= 0; j--) {
     for (let i = holes.length-1; i >= 0; i--) {
         if (random(1)>0) {
@@ -100,8 +116,12 @@ function electronHoleInteraction(interactionStrength,interactionLength,recombina
 
             }
         }
+      }
     }
-  }
+}
+if (rd>=radiativeAugerRatio) {
+  electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction);
+}
 }
 
 // Delete phonons

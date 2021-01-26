@@ -21,12 +21,12 @@ function reset() {
 }
 
 function draw() {
-  if(frameCount % 120 === 0){
+  if(frameCount % 60 === 0){
     reset();
   }
   displayCellElements(1,0,0,0);
   displayLegend(1,1,1,0,0,0,0);
-  electronHoleInteraction(0.008,2.5,0.07,0);
+  electronHoleInteraction(0.008,2.5,0.07,0.3);
   for (let i = 0; i < photons.length; i++) {
     photons[i].move();
     photons[i].display();
