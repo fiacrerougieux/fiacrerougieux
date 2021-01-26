@@ -29,6 +29,33 @@ function initialise() {
     rotationSpeed = 0;
 }
 
+function electronHoleElectronAuger(interactionLength,recombinationProbabilityFraction) {
+// Electron Hole interaction
+  for (let j = electrons.length-1; j >= 0; j--) {
+    for (let i = holes.length-1; i >= 0; i--) {
+      for (let k = j-1; k >= 0; k--) {
+        let dx1 = holes[i].x - electrons[j].x;
+        let dy1 = holes[i].y - electrons[j].y;
+        let distance1 = sqrt(dx1 * dx1 + dy1 * dy1);
+        let dx2 = holes[i].x - electrons[k].x;
+        let dy2 = holes[i].y - electrons[k].y;
+        let distance2 = sqrt(dx2 * dx2 + dy2 * dy2);
+        let minDist = interactionLength*(holes[i].diameter + electrons[j].diameter);
+        if ((distance1 < minDist)&&(distance2 < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[i].y>bottomSide+10))) {
+          if ((electrons[k].y<bottomSide)) {
+            electrons[k].hot = 1;
+          }
+          holes.splice(i,1);
+          electrons.splice(j,1);
+          i=0;
+          j=0;
+          k=0;
+        }
+      }
+    }
+  }
+}
+
 function electronHoleInteraction(interactionStrength,interactionLength,recombinationProbabilityFraction) {
 // Electron Hole interaction
   for (let j = electrons.length-1; j >= 0; j--) {
@@ -73,6 +100,15 @@ function electronHoleInteraction(interactionStrength,interactionLength,recombina
 
             }
         }
+    }
+  }
+}
+
+// Delete phonons
+function removePhonons() {
+  for (let j = phonons.length-1; j >= 0; j--) {
+    if((phonons[j].x<leftSide)||(phonons[j].x>rightSide)||(phonons[j].y<topSide)||(phonons[j].y>bottomSide)) {
+      phonons.splice(j,1);
     }
   }
 }

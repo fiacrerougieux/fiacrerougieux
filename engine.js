@@ -9,7 +9,7 @@ class Particle {
 }
 
 
-// Carrier class
+// Photon class
 class Photon extends Particle { 
   constructor(xinit,yinit, vxinit, vyinit) {
     super(xinit,yinit);
@@ -23,6 +23,25 @@ class Photon extends Particle {
   display() {
     stroke(255,0);
     fill(255,255);
+    ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+  }
+}
+
+// Phonon class
+class Phonon extends Particle { 
+  constructor(xinit,yinit, vxinit, vyinit) {
+    super(xinit,yinit);
+    this.diameter = 4;
+    this.vx = vxinit;
+    this.vy = vyinit;
+  }
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+  }
+  display() {
+    stroke(255,0);
+    fill(255,255,0);
     ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
   }
 }
@@ -51,6 +70,7 @@ class Electron extends Carrier {
     this.id = idin;
     this.others = oin;
     this.charge = -1;
+    this.hot = 0;
   }
   collide() {
     for (let i = this.id + 1; i < electrons.length; i++) {
@@ -99,6 +119,20 @@ class Electron extends Carrier {
     this.y += this.vy;
   }
   display() {
+    if (this.hot==1) {
+      stroke(255,0);
+      fill(255,255,0);
+      ellipse(this.x, this.y, this.diameter+15, this.diameter+15);
+      if(frameCount % 240 === 0){
+        for (let l = 0; l < 10; l++) { 
+          pvx = random(-1,1);
+          pvy = random(-1,1);
+          let phonon = new Phonon(this.x, this.y,pvx,pvy, phonons);
+          phonons.push(phonon);
+        }
+        this.hot=0;
+      }
+    }
     stroke(255,0);
     fill(255,20);
     ellipse(this.x, this.y, this.diameter+10, this.diameter+10);
