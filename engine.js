@@ -36,6 +36,10 @@ class Phonon extends Particle {
     this.vy = vyinit;
   }
   move() {
+    if (this.x<leftSide) {this.x = leftSide, this.vx = -this.vx}
+    if (this.x>rightSide) {this.x = rightSide, this.vx = -this.vx}
+    if (this.y<topSide) {this.y = topSide, this.vy = -this.vy}
+    if (this.y>bottomSide) {this.y = bottomSide, this.vy = -this.vy}
     this.x += this.vx;
     this.y += this.vy;
   }
@@ -48,28 +52,26 @@ class Phonon extends Particle {
 
 // Carrier class
 class Carrier extends Particle { 
-  constructor(xinit,yinit) {
+  constructor(xinit,yinit, vxinit=random(-2, 2), vyinit=random(-2, 2)) {
     super(xinit,yinit);
     this.x = xinit;
     this.y = yinit;
-    this.vx = random(-this.speed, this.speed);
-    this.vy = random(-this.speed, this.speed);
+    this.vx = vxinit;
+    this.vy = vyinit;
     this.electronMembrane = 0;
     this.holeMembrane = 0;
     this.electronMetal = 0;
     this.electronWire = 0;
-    this.pos = createVector(xinit,yinit);
-    this.vel = createVector(random(-this.speed, this.speed),random(-this.speed, this.speed));
-    this.acc = createVector();
   }
 }
 
 class Electron extends Carrier { 
-  constructor(xinit,yinit, idin, oin) {
-    super(xinit,yinit);
+  constructor(xinit,yinit, idin, oin, vxinit, vyinit) {
+    super(xinit,yinit, vxinit, vyinit);
     this.id = idin;
     this.others = oin;
     this.charge = -1;
+    this.potential = 0;
     this.hot = 0;
   }
   collide() {
@@ -88,6 +90,9 @@ class Electron extends Carrier {
         this.vy -= ay;
         this.others[i].vx += ax;
         this.others[i].vy += ay;
+        let potentialAverage = round((this.potential + this.others[i].potential)/2);
+        this.potential = potentialAverage;
+        this.others[i].potential = potentialAverage;
       }
     }
     }
@@ -137,14 +142,14 @@ class Electron extends Carrier {
     fill(255,20);
     ellipse(this.x, this.y, this.diameter+10, this.diameter+10);
     stroke(255);
-    fill(electronColor);
+    fill(color(255-this.potential, 0, 0));
     ellipse(this.x, this.y, this.diameter, this.diameter);
   }
 }
 
 class Hole extends Carrier { 
-  constructor(xinit,yinit, idin, oin) {
-    super(xinit,yinit);
+  constructor(xinit,yinit, idin, oin, vxinit, vyinit) {
+    super(xinit,yinit,vxinit, vyinit);
     this.id = idin;
     this.others = oin;
     this.charge = +1;

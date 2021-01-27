@@ -15,18 +15,14 @@ function setup() {
 }
 
 function reset() {
-  let electron1 = new Electron(leftSide+10,middle+10, k, electrons);       
+  let electron1 = new Electron(leftSide,middle, k, electrons,random(1,2),random(-0.2,0.2));       
   electrons.push(electron1);
-  let hole1 = new Hole(rightSide-10,middle+10, k, holes);       
+  let hole1 = new Hole(rightSide,middle, k, holes,random(-2,-1),random(-0.2,0.2));       
   holes.push(hole1);
-  let electron2 = new Electron(leftSide+10,middle-10, k, electrons);       
-  electrons.push(electron2);
-  let hole2 = new Hole(rightSide-10,middle-10, k, holes);       
-  holes.push(hole2);
 }
 
 function draw() {
-  if(frameCount % 240 === 0){
+  if(frameCount % 260 === 0){
     reset();
   }
   displayCellElements(1,0,0,0);

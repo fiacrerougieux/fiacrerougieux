@@ -11,13 +11,13 @@ function setup() {
 }
 
 function reset() {
-  let electron1 = new Electron(leftSide+10,middle+10, k, electrons);       
+  let electron1 = new Electron(leftSide+20,middle+20, k, electrons,1,0);       
   electrons.push(electron1);
-  let hole1 = new Hole(rightSide-10,middle+10, k, holes);       
+  let hole1 = new Hole(rightSide-20,middle+20, k, holes,-1,0);       
   holes.push(hole1);
-  let electron2 = new Electron(leftSide+10,middle-10, k, electrons);       
+  let electron2 = new Electron(leftSide+20,middle-20, k, electrons,2,0);       
   electrons.push(electron2);
-  let hole2 = new Hole(rightSide-10,middle-10, k, holes);       
+  let hole2 = new Hole(rightSide-20,middle-20, k, holes,-2,0);       
   holes.push(hole2);
   let electronTrap = new ElectronTrap(middlex,middle);
   electronTraps.push(electronTrap);

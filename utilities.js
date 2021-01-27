@@ -1,5 +1,5 @@
 // Initialise
-function initialise() {
+function initialise(leftSideInit = width/8, rightBufferInit = 60, topSideInit = height/4, thicknessInit=100) {
     var canvas = createCanvas(500, 280);
     canvas.parent('canvasForHTML');
     // Initialise colors
@@ -7,17 +7,15 @@ function initialise() {
     rect(-2, -2, width+2, height+2);
     photonColor = color(255, 255, 255);
     electronColor = color(216, 31, 42);
-    let electronCloudColor = color(216, 31, 42);
-    electronCloudColor.setAlpha(10); 
     holeColor = color(0, 126, 163);
     absorberColor = color(163, 163, 163);
     electronMembraneColor = color(231, 104, 209);
     holeMembraneColor = color(110, 121, 224);
     metalColor = color(98, 101, 112);
-    leftSide = width/8;
-    rightSide = width-width/8-10;
-    topSide = height/4;
-    bottomSide = topSide+100;
+    leftSide = leftSideInit;
+    rightSide = width-leftSide-rightBufferInit;
+    topSide = topSideInit;
+    bottomSide = topSide+thicknessInit;
     middle = (topSide + bottomSide)/2;
     middlex = (leftSide + rightSide)/2;
     electronMembrane = 0;
@@ -288,6 +286,33 @@ function holeAcceptorInteraction(interactionStrength) {
                 holes[j].y += holes[i].vy;
             }
         }
+    }
+}
+
+// Electron Donor interaction
+function electronPhononInteraction() {
+    for (let j = electrons.length-1; j >= 0; j--) {
+        for (let i = phonons.length-1; i >= 0; i--) {
+            let dx = phonons[i].x - electrons[j].x;
+            let dy = phonons[i].y - electrons[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = electrons[j].diameter;
+            if (distance < minDist) {
+              electrons[j].potential = electrons[j].potential + 3
+            }
+            if (electrons[j].potential>200) {
+              electrons[j].potential = 200;
+            }
+        }
+    }
+}
+
+// Delete Electron on the Right Side
+function deleteElectronRight() {
+    for (let j = electrons.length-1; j >= 0; j--) {
+      if (electrons[j].x>rightSide-2) {
+        electrons.splice(j,1);
+      }
     }
 }
 
