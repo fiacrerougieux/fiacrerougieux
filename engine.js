@@ -236,6 +236,72 @@ class Impurity {
   }
 }
 
+// Electron Trap class
+class ElectronTrap extends Impurity { 
+  constructor(xinit,yinit) {
+    super(xinit,yinit);
+    this.charge = 0;
+  }
+  emit() {
+    if((frameCount % 100 === 0)&&(this.charge==-1)){
+      let electron = new Electron(this.x-3,this.y+3, k, electrons);       
+      electrons.push(electron);
+      this.charge = -0.5;
+    }
+    if((frameCount % 97 === 0)&&(this.charge==-0.5)){
+      this.charge = 0;
+    }
+  }
+  display() {
+    if ((this.charge==0)||(this.charge==-0.5)) {
+      stroke(electronColor);
+      fill(255,50);
+      ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+      stroke(255);
+      fill(180);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+    if (this.charge==-1) {
+      stroke(255);
+      fill(electronColor);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+  }
+}
+
+// Hole Trap class
+class HoleTrap extends Impurity { 
+  constructor(xinit,yinit) {
+    super(xinit,yinit);
+    this.charge = 0;
+  }
+  emit() {
+    if((frameCount % 100 === 0)&&(this.charge==1)){
+      let hole = new Hole(this.x-3,this.y+3, k, holes);       
+      holes.push(hole);
+      this.charge = 0.5;
+    }
+    if((frameCount % 97 === 0)&&(this.charge==0.5)){
+      this.charge = 0;
+    }
+  }
+  display() {
+    if ((this.charge==0)||(this.charge==0.5)) {
+      stroke(holeColor);
+      fill(255,50);
+      ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+      stroke(255);
+      fill(180);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+    if (this.charge==1) {
+      stroke(255);
+      fill(holeColor);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+  }
+}
+
 // Donor class
 class Donor extends Impurity { 
   constructor(xinit,yinit) {

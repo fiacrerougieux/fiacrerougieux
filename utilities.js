@@ -41,7 +41,7 @@ function electronHoleElectronAuger(interactionStrength,interactionLength,recombi
         let dy2 = holes[i].y - electrons[k].y;
         let distance2 = sqrt(dx2 * dx2 + dy2 * dy2);
         let minDist = interactionLength*(holes[i].diameter + electrons[j].diameter);
-        if ((distance1 < minDist)&&(electrons[i].y<bottomSide-4)) {
+        if ((distance1 < minDist)&&(electrons[j].y<bottomSide-4)) {
             let angle = atan2(dy1, dx1);
             let targetX = electrons[j].x + cos(angle) * minDist;
             let targetY = electrons[j].y + sin(angle) * minDist;
@@ -51,12 +51,12 @@ function electronHoleElectronAuger(interactionStrength,interactionLength,recombi
             electrons[j].vy += ay;
             holes[i].vx -= ax;
             holes[i].vy -= ay;
-            electrons[j].x += electrons[i].vx;
-            electrons[j].y += electrons[i].vy;
+            electrons[j].x += electrons[j].vx;
+            electrons[j].y += electrons[j].vy;
             holes[i].x += holes[i].vx;
             holes[i].y += holes[i].vy;
           }
-        if ((distance1 < minDist)&&(distance2 < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[i].y>bottomSide+10))) {
+        if ((distance1 < minDist)&&(distance2 < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[j].y>bottomSide+10))) {
           if ((electrons[k].y<bottomSide)) {
             electrons[k].hot = 1;
           }
@@ -76,15 +76,13 @@ let rd = random(1);
 if(rd<radiativeAugerRatio) {
   for (let j = electrons.length-1; j >= 0; j--) {
     for (let i = holes.length-1; i >= 0; i--) {
-        if (random(1)>0) {
-
           let dx = holes[i].x - electrons[j].x;
           let dy = holes[i].y - electrons[j].y;
+          console.log(electrons.length)
+          console.log(dy)
           let distance = sqrt(dx * dx + dy * dy);
           let minDist = interactionLength*(holes[i].diameter + electrons[j].diameter);
-          //console.log(distance);
-          //console.log(minDist);
-          if ((distance < minDist)&&(electrons[i].y<bottomSide-4)) {
+          if ((distance < minDist)&&(electrons[j].y<bottomSide-4)) {
             let angle = atan2(dy, dx);
             let targetX = electrons[j].x + cos(angle) * minDist;
             let targetY = electrons[j].y + sin(angle) * minDist;
@@ -94,28 +92,26 @@ if(rd<radiativeAugerRatio) {
             electrons[j].vy += ay;
             holes[i].vx -= ax;
             holes[i].vy -= ay;
-            electrons[j].x += electrons[i].vx;
-            electrons[j].y += electrons[i].vy;
+            electrons[j].x += electrons[j].vx;
+            electrons[j].y += electrons[j].vy;
             holes[i].x += holes[i].vx;
             holes[i].y += holes[i].vy;
           }
-          if ((distance < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[i].y>bottomSide+10))) {
-              if ((electrons[i].y<bottomSide)) {
+          if ((distance < minDist)&&((random(1)>(1-recombinationProbabilityFraction))||(electrons[j].y>bottomSide+10))) {
+              if ((electrons[j].y<bottomSide)) {
                   let pvx = random(-2,2);
                   let pvy = sqrt(2-pvx*pvx);
                   if (random(1)>0.5) {
                       pvy = -pvy;
                   }
-                  let photon = new Photon((holes[i].x+electrons[i].x)/2, (holes[i].y+electrons[i].y)/2,pvx,pvy, photons);
+                  let photon = new Photon((holes[i].x+electrons[i].x)/2, (holes[i].y+electrons[j].y)/2,pvx,pvy, photons);
                   photons.push(photon);
               }
               holes.splice(i,1);
               electrons.splice(j,1);
               i=0;
               j=0;
-
             }
-        }
       }
     }
 }
@@ -131,6 +127,66 @@ function removePhonons() {
       phonons.splice(j,1);
     }
   }
+}
+
+// Electron Electron Trap interaction
+function electronElectronTrapInteraction(interactionStrength) {
+    for (let j = electrons.length-1; j >= 0; j--) {
+        for (let i = electronTraps.length-1; i >= 0; i--) {
+          if (electronTraps[i].charge == 0) {
+            let dx = electronTraps[i].x - electrons[j].x;
+            let dy = electronTraps[i].y - electrons[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = electronTraps[i].crossSection;
+            if ((distance < minDist)&&(electrons[j].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = electrons[j].x + cos(angle) * minDist;
+                let targetY = electrons[j].y + sin(angle) * minDist;
+                let ax = (targetX - electronTraps[i].x) * interactionStrength;
+                let ay = (targetY - electronTraps[i].y) * interactionStrength;
+                electrons[j].vx += ax;
+                electrons[j].vy += ay;
+                electrons[j].x += electrons[j].vx;
+                electrons[j].y += electrons[j].vy;
+            }
+            if ((distance < minDist/3)&&(electrons[j].y<bottomSide-4)) {
+              electrons.splice(j,1);
+              electronTraps[i].charge = -1;
+            }
+          }
+
+        }
+    }
+}
+
+// Hole Hole Trap interaction
+function holeHoleTrapInteraction(interactionStrength) {
+    for (let j = holes.length-1; j >= 0; j--) {
+        for (let i = holeTraps.length-1; i >= 0; i--) {
+          if (holeTraps[i].charge == 0) {
+            let dx = holeTraps[i].x - holes[j].x;
+            let dy = holeTraps[i].y - holes[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = holeTraps[i].crossSection;
+            if ((distance < minDist)&&(holes[j].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = holes[j].x + cos(angle) * minDist;
+                let targetY = holes[j].y + sin(angle) * minDist;
+                let ax = (targetX - holeTraps[i].x) * interactionStrength;
+                let ay = (targetY - holeTraps[i].y) * interactionStrength;
+                holes[j].vx += ax;
+                holes[j].vy += ay;
+                holes[j].x += holes[j].vx;
+                holes[j].y += holes[j].vy;
+            }
+            if ((distance < minDist/3)&&(holes[j].y<bottomSide-4)) {
+              holes.splice(j,1);
+              holeTraps[i].charge = 1;
+            }
+          }
+
+        }
+    }
 }
 
 // Electron Donor interaction
