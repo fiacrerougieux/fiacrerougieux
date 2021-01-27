@@ -25,7 +25,7 @@ function draw() {
     reset();
   }
   displayCellElements(1,0,0,0);
-  displayLegend(1,1,1,0,0,0,0);
+  displayLegend(1,1,1,0,0,0,0,1,1,1);
   electronHoleInteraction(0.008,2.5,0.07,0);
   for (let i = 0; i < photons.length; i++) {
     photons[i].move();

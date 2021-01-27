@@ -1,5 +1,5 @@
 // Initialise
-function initialise(leftSideInit = width/8, rightBufferInit = 60, topSideInit = height/4, thicknessInit=100) {
+function initialise(leftSideDividerInit=16, rightBufferInit = 60, topSideDividerInit = 4.5, thicknessInit=100) {
     var canvas = createCanvas(500, 280);
     canvas.parent('canvasForHTML');
     // Initialise colors
@@ -12,9 +12,10 @@ function initialise(leftSideInit = width/8, rightBufferInit = 60, topSideInit = 
     electronMembraneColor = color(231, 104, 209);
     holeMembraneColor = color(110, 121, 224);
     metalColor = color(98, 101, 112);
-    leftSide = leftSideInit;
+    ARCColor = color(0,255,0)
+    leftSide = width/leftSideDividerInit;
     rightSide = width-leftSide-rightBufferInit;
-    topSide = topSideInit;
+    topSide = height/topSideDividerInit;
     bottomSide = topSide+thicknessInit;
     middle = (topSide + bottomSide)/2;
     middlex = (leftSide + rightSide)/2;
@@ -317,30 +318,30 @@ function deleteElectronRight() {
 }
 
 // Cell elements
-function displayCellElements(dipsplayAbsorber,dipsplayElectronMembrane,dipsplayHoleMembrane,dipsplayMetal) {
+function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1) {
     stroke(255,0);
     fill(20,20,20);
     rect(-20, -20, width+20, height+20);
     
-    if (dipsplayAbsorber==1) {
+    if (displayAbsorber==1) {
       stroke(absorberColor);
       fill(absorberColor);
       rect(leftSide-5, topSide-5, rightSide-leftSide+10, bottomSide-topSide+10);
   }
   
-      if (dipsplayElectronMembrane==1) {
+      if (displayElectronMembrane==1) {
       stroke(electronMembraneColor);
       fill(electronMembraneColor);
       rect(leftSide-5, topSide-5, rightSide-leftSide+10, 14);
   }
   
-      if (dipsplayHoleMembrane==1) {
+      if (displayHoleMembrane==1) {
       stroke(holeMembraneColor);
       fill(holeMembraneColor);
       rect(leftSide-5, bottomSide-8, rightSide-leftSide+10, 14);
   }
   
-      if (dipsplayMetal==1) {
+      if (displayMetal==1) {
       stroke(metalColor);
       fill(metalColor);
       rect(rightSide-35, topSide-26, 40, 20);
@@ -352,74 +353,111 @@ function displayCellElements(dipsplayAbsorber,dipsplayElectronMembrane,dipsplayH
 }
 
 // Legend
-function displayLegend(dipsplayPhoton,dipsplayElectron,dipsplayHole,dipsplayAbsorber,dipsplayElectronMembrane,dipsplayHoleMembrane,dipsplayMetal) {
-  let offset = width/2-80;
+function displayLegend(displayPhoton=1,displayElectron=1,displayHole=1,displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayPhonon=0,displayHotElectron=0,displayHotHole=0,displayAntiReflectionCoating=0) {
+  let offset = 10;
 
-  if (dipsplayPhoton==1) {
+  let row1offset = 20;
+  if (displayPhoton==1) {
       stroke(255);
       fill(photonColor);
-      ellipse(offset+10, height-40, 10, 10);
+      ellipse(offset+row1offset, height-40, 10, 10);
       fill(255);
       stroke(0);
-      text('Photon',offset+ 20, height-36);
+      text('Photon',offset+row1offset+10, height-36);
   }
   
-    if (dipsplayElectron==1) {
+    if (displayElectron==1) {
       stroke(255);
       fill(electronColor);
-      ellipse(offset+10, height-25, 10, 10);
+      ellipse(offset+row1offset, height-25, 10, 10);
       fill(255);
       stroke(0);
-      text('Electron', offset+20, height-21);
+      text('Electron', offset+row1offset+10, height-21);
   }
   
-    if (dipsplayHole==1) {
+    if (displayHole==1) {
       stroke(255);
       fill(holeColor);
-      ellipse(offset+10, height-10, 10, 10);
+      ellipse(offset+row1offset, height-10, 10, 10);
       fill(255);
       stroke(0);
-      text('Hole', offset+20, height-6);
+      text('Hole', offset+row1offset+10, height-6);
   }
   
-    if (dipsplayAbsorber==1) {
+  let row2offset = 90;
+  if (displayPhonon==1) {
+      stroke(255,0);
+      fill(255,255,0);
+      ellipse(offset+row2offset, height-40, 4, 4);
+      fill(255);
+      stroke(0);
+      text('Phonon', offset+row2offset+10, height-36);
+  }
+
+    if (displayHotElectron==1) {
+      stroke(255,0);
+      fill(255,255,0);
+      ellipse(offset+row2offset, height-25, 13, 13);
+      stroke(255);
+      fill(electronColor);
+      ellipse(offset+row2offset, height-25, 10, 10);
+      fill(255);
+      stroke(0);
+      text('Hot Electron', offset+row2offset+10, height-21);
+  }
+  
+    if (displayHotHole==1) {
+      stroke(255,0);
+      fill(255,255,0);
+      ellipse(offset+row2offset, height-10, 13, 13);
+      stroke(255);
+      fill(holeColor);
+      ellipse(offset+row2offset, height-10, 10, 10);
+      fill(255);
+      stroke(0);
+      text('Hot Hole', offset+row2offset+10, height-6);
+  }
+
+  let row3offset = 180;
+    if (displayAbsorber==1) {
       stroke(absorberColor);
       fill(absorberColor);
-      rect(offset+80, height-60, 10, 10);
+      rect(offset+row3offset, height-45, 10, 10);
       fill(255);
       stroke(0);
-      text('Absorber', offset+100, height-49);
+      text('Absorber', offset+row3offset+20, height-36);
   }
   
-      if (dipsplayElectronMembrane==1) {
+      if (displayElectronMembrane==1) {
       stroke(electronMembraneColor);
       fill(electronMembraneColor);
-      rect(offset+80, height-45, 10, 10);
+      rect(offset+row3offset, height-30, 10, 10);
       fill(255);
       stroke(0);
-      text('Electron Membrane', offset+100, height-36);
+      text('Electron Membrane', offset+row3offset+20, height-21);
   }
   
-      if (dipsplayHoleMembrane==1) {
+      if (displayHoleMembrane==1) {
       stroke(holeMembraneColor);
       fill(holeMembraneColor);
-      rect(offset+80, height-30, 10, 10);
+      rect(offset+row3offset, height-15, 10, 10);
       fill(255);
       stroke(0);
-      text('Hole Membrane', offset+100, height-21);
+      text('Hole Membrane', offset+row3offset+20, height-6);
   }
   
-      if (dipsplayMetal==1) {
+    let row4offset = 320;
+      if (displayMetal==1) {
       stroke(metalColor);
       fill(metalColor);
-      rect(offset+80, height-15, 10, 10);
+      rect(offset+row4offset, height-15, 10, 10);
       fill(255);
       stroke(0);
-      text('Metal Contact', offset+100, height-6);
+      text('Metal Contact', offset+row4offset+20, height-6);
       fill(211, 211, 211);
       stroke(211, 211, 211);
       push();
-      translate(offset+220,height-25);
+      translate(offset+row4offset+6,height-46);
       beginShape();
           vertex(-2.5, 2.5);
           vertex(0, 12.5);
@@ -433,6 +471,15 @@ function displayLegend(dipsplayPhoton,dipsplayElectron,dipsplayHole,dipsplayAbso
       pop();
       fill(255);
       stroke(0);
-      text('Load', offset+240, height-20);
+      text('Load', offset+row4offset+25, height-42);
+  }
+
+  if (displayAntiReflectionCoating==1) {
+      stroke(ARCColor);
+      fill(ARCColor);
+      rect(offset+row4offset, height-30, 10, 10);
+      fill(255);
+      stroke(0);
+      text('Anti Reflection Coating', offset+row4offset+20, height-21);
   }
 }

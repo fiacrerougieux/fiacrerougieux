@@ -5,7 +5,7 @@ let electrons = [];
 let load;
 
 function setup() {
-  initialise();
+  initialise(16, 60, 2, 60);
   load = new Fan();
   electronMembrane = 1;
   holeMembrane = 1;
@@ -25,7 +25,7 @@ function draw() {
     reset();
   }
   displayCellElements(1,1,1,1);
-  displayLegend(1,1,1,1,1,1,1);
+  displayLegend(1,1,1,1,1,1,1,1,1,1,1);
   electronHoleInteraction(0.001,1.5,0.02);
   load.display();
   for (let i = photons.length-1; i >= 0; i--) {

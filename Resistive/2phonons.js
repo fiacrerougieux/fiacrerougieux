@@ -5,7 +5,7 @@ let electrons = [];
 let phonons = [];
 
 function setup() {
-  initialise(width/8, 60, height/4, 10);
+  initialise(16, 60, 2, 10);
   for (let l = 0; l < 20; l++) {
     x1 = random(leftSide,rightSide);
     y1 = random(topSide,bottomSide)
@@ -29,7 +29,7 @@ function draw() {
     reset();
   }
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,0,0,0,0,0);
+  displayLegend(1,1,1,0,0,0,0,1);
   deleteElectronRight();
   electronPhononInteraction();
   phonons.forEach(phonon => {
