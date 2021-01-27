@@ -302,6 +302,32 @@ class HoleTrap extends Impurity {
   }
 }
 
+// Recombination Centre class
+class RecombinationCentre extends Impurity { 
+  constructor(xinit,yinit) {
+    super(xinit,yinit);
+    this.charge = 0;
+  }
+  display() {
+    if (this.charge==0) {
+      stroke(electronColor);
+      fill(255,50);
+      ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+      stroke(255);
+      fill(180);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+    if (this.charge==-1) {
+      stroke(holeColor);
+      fill(255,50);
+      ellipse(this.x, this.y-0.6, this.crossSection, this.crossSection);
+      stroke(255);
+      fill(electronColor);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+  }
+}
+
 // Donor class
 class Donor extends Impurity { 
   constructor(xinit,yinit) {

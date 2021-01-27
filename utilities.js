@@ -189,6 +189,62 @@ function holeHoleTrapInteraction(interactionStrength) {
     }
 }
 
+// Carrier Recombination Centre interaction
+function carrierRecombinationCentreInteraction(interactionStrength) {
+    for (let j = electrons.length-1; j >= 0; j--) {
+        for (let i = recombinationCentres.length-1; i >= 0; i--) {
+          if (recombinationCentres[i].charge == 0) {
+            let dx = recombinationCentres[i].x - electrons[j].x;
+            let dy = recombinationCentres[i].y - electrons[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = recombinationCentres[i].crossSection;
+            if ((distance < minDist)&&(electrons[j].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = electrons[j].x + cos(angle) * minDist;
+                let targetY = electrons[j].y + sin(angle) * minDist;
+                let ax = (targetX - recombinationCentres[i].x) * interactionStrength;
+                let ay = (targetY - recombinationCentres[i].y) * interactionStrength;
+                electrons[j].vx += ax;
+                electrons[j].vy += ay;
+                electrons[j].x += electrons[j].vx;
+                electrons[j].y += electrons[j].vy;
+            }
+            if ((distance < minDist/3)&&(electrons[j].y<bottomSide-4)) {
+              electrons.splice(j,1);
+              recombinationCentres[i].charge = -1;
+            }
+          }
+
+        }
+    }
+    for (let j = holes.length-1; j >= 0; j--) {
+        for (let i = recombinationCentres.length-1; i >= 0; i--) {
+          if (recombinationCentres[i].charge == -1) {
+            let dx = recombinationCentres[i].x - holes[j].x;
+            let dy = recombinationCentres[i].y - holes[j].y;
+            let distance = sqrt(dx * dx + dy * dy);
+            let minDist = recombinationCentres[i].crossSection;
+            if ((distance < minDist)&&(holes[j].y<bottomSide-4)) {
+                let angle = atan2(dy, dx);
+                let targetX = holes[j].x + cos(angle) * minDist;
+                let targetY = holes[j].y + sin(angle) * minDist;
+                let ax = (targetX - recombinationCentres[i].x) * interactionStrength;
+                let ay = (targetY - recombinationCentres[i].y) * interactionStrength;
+                holes[j].vx += ax;
+                holes[j].vy += ay;
+                holes[j].x += holes[j].vx;
+                holes[j].y += holes[j].vy;
+            }
+            if ((distance < minDist/3)&&(holes[j].y<bottomSide-4)) {
+              holes.splice(j,1);
+              recombinationCentres[i].charge = 0;
+            }
+          }
+
+        }
+    }
+}
+
 // Electron Donor interaction
 function electronDonorInteraction(interactionStrength) {
     for (let j = electrons.length-1; j >= 0; j--) {
