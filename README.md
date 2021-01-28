@@ -1,6 +1,6 @@
 # enerviz.net
 ## Welcome
-This is the repo of my site http://enerviz.net.
+This is the repo of my site https://fiacrer.github.io/.
 
 
 ![Solar Cell](SolarCell.PNG)
@@ -13,20 +13,24 @@ The website describes the very basics of solar cell operation by using javascrip
 Engine.js is the core of the program for the animation of solar cells.
 
 #### Classess
-It contains five classes:
+It contains six classes:
 - Particle: this is the parent class of photons, electrons and holes.
 - Photon: this is a child class to the Particle class.
+- Phonon: this is a child class to the Particle class.
 - Electron: this is a child class to the Particle class.
 - Hole: this is a child class to the Particle class.
 - Load: this is a class to define loads.
 
-#### Methods
+Electrons and holes can be hot or cold.
 
-Electron, photon and hole have the methods:
-- .move() to move around the solar cell
+#### Methods
+Electrons, holes and photons have the methods:
 - .collide() for electrons to collide with each others and holes to collide with each other.
 
-Electron, photon, hole and loads have the method:
+Electrons, holes, photons and phonons have the methods:
+- .move() to move around the solar cell
+
+Electrons, holes, photons, phonons and loads have the method:
 - .display() to be displayed on the screen
 
 ### Utilities.js
