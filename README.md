@@ -1,4 +1,4 @@
-# enerviz.net
+# Introduction to solar cells
 ## Welcome
 This is the repo of my site https://fiacrer.github.io/.
 
@@ -37,9 +37,16 @@ Electrons, holes, photons, phonons and loads have the method:
 Utilities.js contains the functions used during the animation.
 
 #### Functions
-It contains four functions:
+It contains ten functions:
 - initialise() initialise the variables for the simulation so that all simulations on the site have the same starting values.
 - electronHoleInteraction() for electrons and holes to collide and recombine.
+- electronHoleElectronAuger() for electrons and holes Auger recombination.
+- removePhonons() to remove phonons when they reach the edge of the simulation volume.
+- electronElectronTrapInteraction() to simulate the electron trap interaction.
+- holeHoleTrapInteraction() to simulate the hole trap interaction.
+- carrierRecombinationCentreInteraction() to simulate the carrier recombination centre interaction.
+- electronPhononInteraction() to simulate the electron phonon interaction.
+- deleteElectronRight() to delete electrons at the right of the simulation volume.
 - displayCellElements() to display various cell elements such as the absorber, the electron selective membrane, the hole selective membrane and the metal contact, wire and load.
 - displayLegend() to display the legend of various objects such as photons, electrons, holes and cell elements such as the absorber, the electron selective membrane, the hole selective membrane and the metal contact, wire and load.
 
