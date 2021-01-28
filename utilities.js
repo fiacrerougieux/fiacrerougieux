@@ -22,7 +22,7 @@ function initialise(leftSideDividerInit=16, rightBufferInit = 60, topSideDivider
     electronMembrane = 0;
     holeMembrane = 0;
     metal = 0;
-    pyramids = 1;
+    pyramids = 0;
     spring = 0.05;
     k=0;
     rotationAngle = 0;
