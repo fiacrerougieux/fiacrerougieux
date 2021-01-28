@@ -22,6 +22,7 @@ function initialise(leftSideDividerInit=16, rightBufferInit = 60, topSideDivider
     electronMembrane = 0;
     holeMembrane = 0;
     metal = 0;
+    pyramids = 1;
     spring = 0.05;
     k=0;
     rotationAngle = 0;
@@ -318,7 +319,7 @@ function deleteElectronRight() {
 }
 
 // Cell elements
-function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1) {
+function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0) {
     stroke(255,0);
     fill(20,20,20);
     rect(-20, -20, width+20, height+20);
@@ -341,6 +342,80 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       rect(leftSide-5, bottomSide-8, rightSide-leftSide+10, 14);
   }
   
+  if (displayAntiReflectionCoating==1) {
+      stroke(ARCColor);
+      fill(ARCColor);
+      rect(leftSide-5, topSide-15, rightSide-leftSide+10, 9);
+  }
+
+  if (displayPyramids==1) {
+      let peak1 = (rightSide-leftSide-35)/4;
+      let through1 = (rightSide-leftSide-35)/2;
+      let peak2 = 3*(rightSide-leftSide-35)/4;
+      let through2 = (rightSide-leftSide-35);
+      let pyramidHeight = 85;
+      if (displayAntiReflectionCoating==1) {
+        stroke(ARCColor);
+        fill(ARCColor);
+        push();
+        translate(leftSide,topSide-9);
+        beginShape();
+          vertex(-4, -5);
+          vertex(peak1, -5-pyramidHeight);
+          vertex(through1, -5);
+          vertex(peak2, -5-pyramidHeight);
+          vertex(through2, -5);
+          vertex(through2, 9);
+          vertex(-4, 9);
+        endShape();
+        pop();
+      }
+      stroke(absorberColor);
+      fill(absorberColor);
+      push();
+      translate(leftSide,topSide);
+      beginShape();
+        vertex(-4, -5);
+        vertex(peak1, -5-pyramidHeight);
+        vertex(through1, -5);
+        vertex(peak2, -5-pyramidHeight);
+        vertex(through2, -5);
+        vertex(through2, 9);
+        vertex(-4, 9);
+      endShape();
+      pop();
+    if (displayHoleMembrane==1) {
+      stroke(electronMembraneColor);
+      fill(electronMembraneColor);
+      push();
+      translate(leftSide,topSide);
+      beginShape();
+        vertex(-4, -5);
+        vertex(peak1, -5-pyramidHeight);
+        vertex(through1, -5);
+        vertex(peak2, -5-pyramidHeight);
+        vertex(through2, -5);
+        vertex(through2, 9);
+        vertex(-4, 9);
+      endShape();
+      pop();
+      stroke(absorberColor);
+      fill(absorberColor);
+      push();
+      translate(leftSide,topSide+14);
+      beginShape();
+        vertex(-4, -5);
+        vertex(peak1, -5-pyramidHeight);
+        vertex(through1, -5);
+        vertex(peak2, -5-pyramidHeight);
+        vertex(through2, -5);
+        vertex(through2, 9);
+        vertex(-4, 9);
+      endShape();
+      pop();
+    }
+  }
+
       if (displayMetal==1) {
       stroke(metalColor);
       fill(metalColor);
@@ -350,6 +425,7 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       rect(rightSide, bottomSide+7, 40, 5);
       rect(rightSide-35, bottomSide+7, 40, 20);
   }
+
 }
 
 // Legend

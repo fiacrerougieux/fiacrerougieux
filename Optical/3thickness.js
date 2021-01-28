@@ -5,7 +5,7 @@ let electrons = [];
 let load;
 
 function setup() {
-  initialise(16, 60, 4, 60);
+  initialise(16, 60, 8, 150);
   load = new Fan();
   electronMembrane = 1;
   holeMembrane = 1;
@@ -17,7 +17,7 @@ function reset() {
     let pvx = 0;
     let pvy = sqrt(2-pvx*pvx);
     let photon = new Photon(random(leftSide,rightSide), 0,pvx,pvy, photons);
-    photon.reflectionProbabilityFraction=0.25;
+    photon.reflectionProbabilityFraction=0;
     photons.push(photon);
 }
 
@@ -25,8 +25,8 @@ function draw() {
   if(frameCount % 60 === 0){
     reset();
   }
-  displayCellElements(1,1,1,1);
-  displayLegend(1,1,1,1,1,1,1,0,0,0,0);
+  displayCellElements(1,1,1,1,1);
+  displayLegend(1,1,1,1,1,1,1,0,0,0,1)
   electronHoleInteraction(0.001,1.5,0.02);
   load.display();
   for (let i = photons.length-1; i >= 0; i--) {

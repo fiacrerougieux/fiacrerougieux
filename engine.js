@@ -15,8 +15,30 @@ class Photon extends Particle {
     super(xinit,yinit);
     this.vx = vxinit;
     this.vy = vyinit;
+    this.reflectionProbabilityFraction=0.05;
   }
   move() {
+    if ((this.y>topSide-2)&&(this.y<topSide+2)&&(random(1)>(1-this.reflectionProbabilityFraction))) {
+      this.vy = -this.vy;
+    }
+    if (pyramids==1) {
+      let peak1 = (rightSide-leftSide-35)/4+20;
+      let through1 = (rightSide-leftSide-35)/2+20;
+      let peak2 = 3*(rightSide-leftSide-35)/4+20;
+      let through2 = (rightSide-leftSide-35)+20;
+      if (this.x<=peak1) {
+        if ((this.y>122-this.x)&&(this.y<=124-this.x)) {this.vx=1}           
+      }
+      if ((this.x>peak1)&&(this.x<=through1)) {
+        if ((this.y>this.x-95)&&(this.y<=this.x-93)) {this.vx=-1}            
+      }
+      if ((this.x>through1)&&(this.x<=peak2)) {
+        if ((this.y>288-this.x)&&(this.y<=290-this.x)) {this.vx=1}            
+      }
+      if ((this.x>peak2)&&(this.x<=through2)) {
+        if ((this.y>this.x-300)&&(this.y<=this.x-298)) {this.vx=-1}          
+      }
+    }
     this.x += this.vx;
     this.y += this.vy;
   }
@@ -108,15 +130,35 @@ class Electron extends Carrier {
         if ((holeMembrane==1)&&(this.y>bottomSide-9)) {this.vy=-this.vy,this.y=bottomSide-9}
     }
     if ((metal==1)) {
-        if ((electronMembrane==1)&&(this.y<topSide+2)) {this.vy=0}
         if ((electronMembrane==1)&&(this.y<topSide+2)&&(this.x > rightSide - 43)) {this.vy=-random(2),this.vx=+random(2)}
-        if ((this.y<topSide)&&(this.x < rightSide - 33)) {this.y = topSide, this.vy = -this.vy}
-        if ((this.y<topSide-10)&&(this.x >= rightSide - 33)) {this.y = topSide-10, this.vy = -this.vy}
         if ((this.y>bottomSide+10)&&(this.x >= rightSide + 43)) {this.y = bottomSide+10, this.vy = 0, this.vx = -2}
         if ((this.x>rightSide)&&(this.x<rightSide+43)&&(this.y>topSide+1)&&(this.y<bottomSide-1)) {this.x = rightSide, this.vx = -this.vx}
         if (this.x>rightSide+43) {this.x = rightSide+43, this.vx = 0, this.vy = 2, rotationSpeed = rotationSpeed + 0.03}
         if ((holeMembrane==1)&&(this.y>bottomSide-9)&&(this.x<rightSide-20)) {this.vy=-this.vy,this.y=bottomSide-9}
         if ((this.y>=bottomSide+10)&&(this.x < rightSide - 5)) {this.y = bottomSide+11+random(2), this.x = rightSide-10+random(2), this.vy = 0, this.vx = 0}
+        if ((this.y<topSide-10)&&(this.x >= rightSide - 33)) {this.y = topSide-10, this.vy = -this.vy}
+        if (pyramids==0) {
+          if ((electronMembrane==1)&&(this.y<topSide+2)) {this.vy=0}
+          if ((this.y<topSide)&&(this.x < rightSide - 33)) {this.y = topSide, this.vy = -this.vy}
+        }
+        if ((electronMembrane==1)&&(pyramids==1)) {
+          let peak1 = (rightSide-leftSide-35)/4+20;
+          let through1 = (rightSide-leftSide-35)/2+20;
+          let peak2 = 3*(rightSide-leftSide-35)/4+20;
+          let through2 = (rightSide-leftSide-35)+20;
+          if (this.x<=peak1) {
+            if ((electronMembrane==1)&&(this.y<=140-this.x)) {this.vy=0,this.y=130-this.x}           
+          }
+          if ((this.x>peak1)&&(this.x<=through1)) {
+            if ((this.y<=this.x-85)) {this.vy=0,this.y=this.x-95}           
+          }
+          if ((this.x>through1)&&(this.x<=peak2)) {
+            if ((this.y<=310-this.x)) {this.vy=0,this.y=300-this.x}           
+          }
+          if ((this.x>peak2)&&(this.x<=through2)) {
+            if ((this.y<=this.x-260)) {this.vy=0,this.y=this.x-270}           
+          }
+        }
     }
     if (this.vx>4) {this.vx = 4}
     if (this.vy>4) {this.vy = 4}
