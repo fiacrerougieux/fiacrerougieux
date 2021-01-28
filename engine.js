@@ -138,7 +138,7 @@ class Electron extends Carrier {
         if ((this.y>=bottomSide+10)&&(this.x < rightSide - 5)) {this.y = bottomSide+11+random(2), this.x = rightSide-10+random(2), this.vy = 0, this.vx = 0}
         if ((this.y<topSide-10)&&(this.x >= rightSide - 33)) {this.y = topSide-10, this.vy = -this.vy}
         if (pyramids==0) {
-          if ((electronMembrane==1)&&(this.y<topSide+2)) {this.vy=0}
+          if ((electronMembrane==1)&&(this.y<topSide+2)&&(this.x < rightSide - 33)) {this.vy=0}
           if ((this.y<topSide)&&(this.x < rightSide - 33)) {this.y = topSide, this.vy = -this.vy}
         }
         if ((electronMembrane==1)&&(pyramids==1)) {
