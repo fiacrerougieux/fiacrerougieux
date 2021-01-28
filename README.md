@@ -1,6 +1,6 @@
-# enerviz.net
+# Introduction to solar cells
 ## Welcome
-This is the repo of my site http://enerviz.net.
+This is the repo of my site https://fiacrer.github.io/.
 
 
 ![Solar Cell](SolarCell.PNG)
@@ -13,29 +13,40 @@ The website describes the very basics of solar cell operation by using javascrip
 Engine.js is the core of the program for the animation of solar cells.
 
 #### Classess
-It contains five classes:
+It contains six classes:
 - Particle: this is the parent class of photons, electrons and holes.
 - Photon: this is a child class to the Particle class.
+- Phonon: this is a child class to the Particle class.
 - Electron: this is a child class to the Particle class.
 - Hole: this is a child class to the Particle class.
 - Load: this is a class to define loads.
 
-#### Methods
+Electrons and holes can be hot or cold.
 
-Electron, photon and hole have the methods:
-- .move() to move around the solar cell
+#### Methods
+Electrons, holes and photons have the methods:
 - .collide() for electrons to collide with each others and holes to collide with each other.
 
-Electron, photon, hole and loads have the method:
+Electrons, holes, photons and phonons have the methods:
+- .move() to move around the solar cell
+
+Electrons, holes, photons, phonons and loads have the method:
 - .display() to be displayed on the screen
 
 ### Utilities.js
 Utilities.js contains the functions used during the animation.
 
 #### Functions
-It contains four functions:
+It contains ten functions:
 - initialise() initialise the variables for the simulation so that all simulations on the site have the same starting values.
 - electronHoleInteraction() for electrons and holes to collide and recombine.
+- electronHoleElectronAuger() for electrons and holes Auger recombination.
+- removePhonons() to remove phonons when they reach the edge of the simulation volume.
+- electronElectronTrapInteraction() to simulate the electron trap interaction.
+- holeHoleTrapInteraction() to simulate the hole trap interaction.
+- carrierRecombinationCentreInteraction() to simulate the carrier recombination centre interaction.
+- electronPhononInteraction() to simulate the electron phonon interaction.
+- deleteElectronRight() to delete electrons at the right of the simulation volume.
 - displayCellElements() to display various cell elements such as the absorber, the electron selective membrane, the hole selective membrane and the metal contact, wire and load.
 - displayLegend() to display the legend of various objects such as photons, electrons, holes and cell elements such as the absorber, the electron selective membrane, the hole selective membrane and the metal contact, wire and load.
 
