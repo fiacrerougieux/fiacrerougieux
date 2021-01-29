@@ -23,7 +23,7 @@ function setup() {
 
 function draw() {
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,0,0,0,0,0);
+  displayLegend(0,1,1,0,0,0,0);
   holeAcceptorInteraction(0.008);
   holes.forEach(hole => {
     hole.collide();

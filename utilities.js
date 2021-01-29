@@ -292,14 +292,14 @@ function holeAcceptorInteraction(interactionStrength) {
 }
 
 // Electron Donor interaction
-function electronPhononInteraction() {
+function electronPhononInteraction(interactionProbabilityFraction) {
     for (let j = electrons.length-1; j >= 0; j--) {
         for (let i = phonons.length-1; i >= 0; i--) {
             let dx = phonons[i].x - electrons[j].x;
             let dy = phonons[i].y - electrons[j].y;
             let distance = sqrt(dx * dx + dy * dy);
             let minDist = electrons[j].diameter;
-            if (distance < minDist) {
+            if ((distance < minDist)&&(random(1)>(1-interactionProbabilityFraction))) {
               electrons[j].potential = electrons[j].potential + 3
             }
             if (electrons[j].potential>200) {
@@ -319,7 +319,7 @@ function deleteElectronRight() {
 }
 
 // Cell elements
-function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0) {
+function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0,displayAbsorberAsMetal=0) {
     stroke(255,0);
     fill(20,20,20);
     rect(-20, -20, width+20, height+20);
@@ -330,6 +330,12 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       rect(leftSide-5, topSide-5, rightSide-leftSide+10, bottomSide-topSide+10);
   }
   
+    if (displayAbsorberAsMetal==1) {
+      stroke(metalColor);
+      fill(metalColor);
+      rect(leftSide-5, topSide-5, rightSide-leftSide+10, bottomSide-topSide+10);
+  }
+
       if (displayElectronMembrane==1) {
       stroke(electronMembraneColor);
       fill(electronMembraneColor);

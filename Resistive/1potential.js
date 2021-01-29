@@ -18,24 +18,20 @@ function setup() {
 }
 
 function reset() {
-  let electron = new Electron(leftSide+10,topSide,k,electrons,2,0);       
+  let electron = new Electron(leftSide,topSide,k,electrons,2,0);       
   electrons.push(electron);
 let electron1 = new Electron(leftSide,topSide+10,k,electrons,2,0);       
   electrons.push(electron1);
 }
 
 function draw() {
-  if(frameCount % 10 === 0){
+  if(frameCount % 5 === 0){
     reset();
   }
-  displayCellElements(1,0,0,0);
-  displayLegend(1,1,1,0,0,0,0,1);
+  displayCellElements(1,0,0,0,0,0,1);
+  displayLegend(1,1,1,0,0,0,1,1);
   deleteElectronRight();
-  electronPhononInteraction();
-  phonons.forEach(phonon => {
-    phonon.move();
-    phonon.display();
-  });
+  electronPhononInteraction(1);
   electrons.forEach(electron => {
     electron.move();
     electron.display();

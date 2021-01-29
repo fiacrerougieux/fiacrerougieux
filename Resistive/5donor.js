@@ -14,7 +14,7 @@ function setup() {
 
 function draw() {
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,0,0,0,0,0);
+  displayLegend(0,1,1,0,0,0,0);
   electronDonorInteraction(0.008);
   electrons.forEach(electron => {
     electron.collide();

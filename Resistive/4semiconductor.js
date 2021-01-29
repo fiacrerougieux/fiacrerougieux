@@ -3,26 +3,23 @@ let photons = [];
 let holes = [];
 let electrons = [];
 let donors = [];
-let acceptors = [];
 
 function setup() {
   initialise();
-  let hole = new Hole(leftSide+10,middle,k,electrons);       
-  holes.push(hole);
-  let acceptor = new Acceptor(middlex,middle);
-  acceptors.push(acceptor);
 }
 
 function draw() {
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,0,0,0,0,0);
-  holeAcceptorInteraction(0.008);
+  displayLegend(0,1,1,0,0,0,0);
+  electronHoleInteraction(0.008,2.5,0,0.3);
+  electrons.forEach(electron => {
+    electron.collide();
+    electron.move();
+    electron.display();
+  });
   holes.forEach(hole => {
     hole.collide();
     hole.move();
     hole.display();
-  });
-  acceptors.forEach(acceptor => {
-    acceptor.display();
   });
 }
