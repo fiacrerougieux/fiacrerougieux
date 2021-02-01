@@ -27,6 +27,7 @@ function initialise(leftSideDividerInit=16, rightBufferInit = 60, topSideDivider
     k=0;
     rotationAngle = 0;
     rotationSpeed = 0;
+    monofacial = 0;
 }
 
 function electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction) {
@@ -368,7 +369,7 @@ function deleteElectronRight() {
 }
 
 // Cell elements
-function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0,displayAbsorberAsMetal=0,metalWidth=40,metalHeight=20) {
+function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayFrontAntiReflectionCoating=0,displayPyramids=0,displayAbsorberAsMetal=0,metalWidth=40,metalHeight=20,displayRearAntiReflectionCoating=0,displayRearPERC=0) {
     stroke(255,0);
     fill(20,20,20);
     rect(-20, -20, width+20, height+20);
@@ -397,10 +398,25 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       rect(leftSide-5, bottomSide-8, rightSide-leftSide+10, 14);
   }
   
-  if (displayAntiReflectionCoating==1) {
+  if (displayFrontAntiReflectionCoating==1) {
       stroke(ARCColor);
       fill(ARCColor);
       rect(leftSide-5, topSide-15, rightSide-leftSide+10, 9);
+  }
+
+  if (displayRearAntiReflectionCoating==1) {
+      stroke(ARCColor);
+      fill(ARCColor);
+      rect(leftSide-5, bottomSide+7, rightSide-leftSide+10, 4);
+  }
+
+  if (displayRearPERC==1) {
+      stroke(ARCColor);
+      fill(ARCColor);
+      rect(leftSide-5, bottomSide+7, rightSide-leftSide+10, 10);
+      stroke(metalColor);
+      fill(metalColor);
+      rect(leftSide-5, bottomSide+17, rightSide-leftSide+10, 15);
   }
 
   if (displayPyramids==1) {
@@ -409,7 +425,7 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       let peak2 = 3*(rightSide-leftSide-35)/4;
       let through2 = (rightSide-leftSide-35);
       let pyramidHeight = 85;
-      if (displayAntiReflectionCoating==1) {
+      if (displayFrontAntiReflectionCoating==1) {
         stroke(ARCColor);
         fill(ARCColor);
         push();

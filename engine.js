@@ -18,6 +18,7 @@ class Photon extends Particle {
     this.reflectionProbabilityFraction=0.05;
     this.contactWidth = 40;
     this.contactHeight = 20;
+    this.monofacial = 0;
   }
   move() {
     if ((this.y>topSide-2)&&(this.y<topSide+2)&&(random(1)>(1-this.reflectionProbabilityFraction))) {
@@ -26,22 +27,29 @@ class Photon extends Particle {
     if ((this.y>topSide-this.contactHeight-2)&&(this.y<topSide-this.contactHeight+2)&&(this.x>(rightSide-this.contactWidth))) {
       this.vy = -this.vy;
     }
+    if ((this.y>bottomSide+12)&&(monofacial==1)) {
+      this.vy = -this.vy;
+    }
     if (pyramids==1) {
       let peak1 = (rightSide-leftSide-35)/4+20;
       let through1 = (rightSide-leftSide-35)/2+20;
       let peak2 = 3*(rightSide-leftSide-35)/4+20;
       let through2 = (rightSide-leftSide-35)+20;
       if (this.x<=peak1) {
-        if ((this.y>122-this.x)&&(this.y<=124-this.x)) {this.vx=1}           
+        if ((this.y>122-this.x)&&(this.y<=124-this.x)&&(this.vy>=0)) {this.vx=1}
+        if ((this.y>122-this.x)&&(this.y<=124-this.x)&&(this.vy<=0)) {this.vx=-1}            
       }
       if ((this.x>peak1)&&(this.x<=through1)) {
-        if ((this.y>this.x-95)&&(this.y<=this.x-93)) {this.vx=-1}            
+        if ((this.y>this.x-95)&&(this.y<=this.x-93)&&(this.vy>=0)) {this.vx=-1}
+        if ((this.y>this.x-95)&&(this.y<=this.x-93)&&(this.vy<=0)) {this.vx=1}             
       }
       if ((this.x>through1)&&(this.x<=peak2)) {
-        if ((this.y>288-this.x)&&(this.y<=290-this.x)) {this.vx=1}            
+        if ((this.y>288-this.x)&&(this.y<=290-this.x)&&(this.vy>=0)) {this.vx=1}
+        if ((this.y>288-this.x)&&(this.y<=290-this.x)&&(this.vy<=0)) {this.vx=-1}             
       }
       if ((this.x>peak2)&&(this.x<=through2)) {
-        if ((this.y>this.x-300)&&(this.y<=this.x-298)) {this.vx=-1}          
+        if ((this.y>this.x-300)&&(this.y<=this.x-298)&&(this.vy>=0)) {this.vx=-1}
+        if ((this.y>this.x-300)&&(this.y<=this.x-298)&&(this.vy<=0)) {this.vx=1}          
       }
     }
     this.x += this.vx;
@@ -161,7 +169,7 @@ class Electron extends Carrier {
         if ((this.y>bottomSide+10)&&(this.x >= rightSide + 43)) {this.y = bottomSide+10, this.vy = 0, this.vx = -2}
         if ((this.x>rightSide)&&(this.x<rightSide+43)&&(this.y>topSide+1)&&(this.y<bottomSide-1)) {this.x = rightSide, this.vx = -this.vx}
         if (this.x>rightSide+43) {this.x = rightSide+43, this.vx = 0, this.vy = 2, rotationSpeed = rotationSpeed + 0.03,this.potential = this.potential+10}
-        if ((holeMembrane==1)&&(this.y>bottomSide-9)&&(this.x<rightSide-20)) {this.vy=-this.vy,this.y=bottomSide-9}
+        if ((holeMembrane==1)&&(this.y>bottomSide-9)&&(this.x<rightSide)&&(this.potential<10)) {this.vy=-this.vy,this.y=bottomSide-9}
         if ((this.y>=bottomSide+10)&&(this.x < rightSide - 5)) {this.y = bottomSide+11+random(2), this.x = rightSide-10+random(2), this.vy = 0, this.vx = 0}
         if ((this.y<topSide-10)&&(this.x >= rightSide - 33)) {this.y = topSide-10, this.vy = -this.vy}
         if (pyramids==0) {
