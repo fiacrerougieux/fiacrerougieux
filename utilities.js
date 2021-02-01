@@ -71,6 +71,48 @@ function electronHoleElectronAuger(interactionStrength,interactionLength,recombi
   }
 }
 
+function holeElectronHoleAuger(interactionStrength,interactionLength,recombinationProbabilityFraction) {
+// Electron Hole interaction
+  for (let j = holes.length-1; j >= 0; j--) {
+    for (let i = electrons.length-1; i >= 0; i--) {
+      for (let k = j-1; k >= 0; k--) {
+        let dx1 = electrons[i].x - holes[j].x;
+        let dy1 = electrons[i].y - holes[j].y;
+        let distance1 = sqrt(dx1 * dx1 + dy1 * dy1);
+        let dx2 = electrons[i].x - holes[k].x;
+        let dy2 = electrons[i].y - holes[k].y;
+        let distance2 = sqrt(dx2 * dx2 + dy2 * dy2);
+        let minDist = interactionLength*(electrons[i].diameter + holes[j].diameter);
+        if ((distance1 < minDist)&&(electrons[i].y<bottomSide-4)) {
+            let angle = atan2(dy1, dx1);
+            let targetX = holes[j].x + cos(angle) * minDist;
+            let targetY = holes[j].y + sin(angle) * minDist;
+            let ax = (targetX - holes[i].x) * interactionStrength;
+            let ay = (targetY - holes[i].y) * interactionStrength;
+            holes[j].vx += ax;
+            holes[j].vy += ay;
+            electrons[i].vx -= ax;
+            electrons[i].vy -= ay;
+            holes[j].x += holes[j].vx;
+            holes[j].y += holes[j].vy;
+            electrons[i].x += electrons[i].vx;
+            electrons[i].y += electrons[i].vy;
+          }
+        if ((distance1 < minDist)&&(distance2 < minDist)&&((random(1)>(1-recombinationProbabilityFraction)))) {
+          if ((holes[k].y<bottomSide)) {
+            holes[k].hot = 1;
+          }
+          electrons.splice(i,1);
+          holes.splice(j,1);
+          i=0;
+          j=0;
+          k=0;
+        }
+      }
+    }
+  }
+}
+
 function electronHoleInteraction(interactionStrength,interactionLength,recombinationProbabilityFraction,radiativeAugerRatio=1) {
 let rd = random(1);
 if(rd<radiativeAugerRatio) {
@@ -116,7 +158,14 @@ if(rd<radiativeAugerRatio) {
     }
 }
 if (rd>=radiativeAugerRatio) {
-  electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction);
+  let rd2 = random(1);
+  if (rd2<0.5) {
+    holeElectronHoleAuger(interactionStrength,interactionLength,recombinationProbabilityFraction);
+  }
+  if (rd2>=0.5) {
+    electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction);
+  }
+
 }
 }
 
@@ -319,7 +368,7 @@ function deleteElectronRight() {
 }
 
 // Cell elements
-function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0,displayAbsorberAsMetal=0) {
+function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayAntiReflectionCoating=0,displayPyramids=0,displayAbsorberAsMetal=0,metalWidth=40,metalHeight=20) {
     stroke(255,0);
     fill(20,20,20);
     rect(-20, -20, width+20, height+20);
@@ -425,7 +474,7 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
       if (displayMetal==1) {
       stroke(metalColor);
       fill(metalColor);
-      rect(rightSide-35, topSide-26, 40, 20);
+      rect(rightSide-metalWidth+5, topSide-metalHeight-6, metalWidth, metalHeight);
       rect(rightSide, topSide-11, 40, 5);
       rect(rightSide+40, topSide-11, 5, bottomSide - topSide + 23);
       rect(rightSide, bottomSide+7, 40, 5);

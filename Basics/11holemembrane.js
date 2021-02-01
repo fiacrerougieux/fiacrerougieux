@@ -13,6 +13,7 @@ function reset() {
     let pvx = 0;
     let pvy = sqrt(2-pvx*pvx);
     let photon = new Photon(random(leftSide,rightSide), 0,pvx,pvy, photons);
+    photon.contactWidth = 0;    
     photons.push(photon);
 }
 

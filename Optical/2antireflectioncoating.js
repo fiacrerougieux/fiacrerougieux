@@ -18,6 +18,8 @@ function reset() {
     let pvy = sqrt(2-pvx*pvx);
     let photon = new Photon(random(leftSide,rightSide), 0,pvx,pvy, photons);
     photon.reflectionProbabilityFraction=0;
+    photon.contactWidth = 60;
+    photon.contactHeight = 15;
     photons.push(photon);
 }
 
@@ -25,7 +27,7 @@ function draw() {
   if(frameCount % 60 === 0){
     reset();
   }
-  displayCellElements(1,1,1,1,1);
+  displayCellElements(1,1,1,1,1,0,0,60,15);
   displayLegend(1,1,1,1,1,1,1,0,0,0,1)
   electronHoleInteraction(0.001,1.5,0.02);
   load.display();

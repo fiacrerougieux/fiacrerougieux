@@ -16,9 +16,14 @@ class Photon extends Particle {
     this.vx = vxinit;
     this.vy = vyinit;
     this.reflectionProbabilityFraction=0.05;
+    this.contactWidth = 40;
+    this.contactHeight = 20;
   }
   move() {
     if ((this.y>topSide-2)&&(this.y<topSide+2)&&(random(1)>(1-this.reflectionProbabilityFraction))) {
+      this.vy = -this.vy;
+    }
+    if ((this.y>topSide-this.contactHeight-2)&&(this.y<topSide-this.contactHeight+2)&&(this.x>(rightSide-this.contactWidth))) {
       this.vy = -this.vy;
     }
     if (pyramids==1) {
@@ -43,9 +48,31 @@ class Photon extends Particle {
     this.y += this.vy;
   }
   display() {
-    stroke(255,0);
-    fill(255,255);
-    ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    // Here in the comment is sort of more physical way to represent photons as wave
+    // Not used at the moment as it lacks aesthetics
+    //if (photonAsParticle == 1) {
+      stroke(255,0);
+      fill(255,255);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    //}
+    //if (photonAsParticle == 0) {
+    //  let direction = -PI/2+atan2(this.vy, this.vx)
+    //  let wavelength = 1150;  // nm
+    //  colorMode(HSB, 100);
+    //  fill(80*(1200-wavelength)/1200, 255, 100)
+    //  stroke(80*(1200-wavelength)/1200, 255, 100);
+    //  push()
+    //  translate(this.x,this.y)
+    //  rotate(direction)
+    //  scale(1, wavelength/600);
+    //  curve(20,-20, 15, -5, 20,  0, 10, 10);
+    //  curve(10,-10, 20,  0, 10, 10, 20, 20);
+    //  curve(20,  0, 10, 10, 20, 20, 10, 30);
+    //  curve(10, 10, 20, 20, 15, 25, 15, 40);
+    //  triangle(12, 25, 18, 25, 15, 31);
+    //  pop()
+    //  colorMode(RGB, 100);
+    //}
   }
 }
 
@@ -133,7 +160,7 @@ class Electron extends Carrier {
         if ((electronMembrane==1)&&(this.y<topSide+2)&&(this.x > rightSide - 43)) {this.vy=-random(2),this.vx=+random(2)}
         if ((this.y>bottomSide+10)&&(this.x >= rightSide + 43)) {this.y = bottomSide+10, this.vy = 0, this.vx = -2}
         if ((this.x>rightSide)&&(this.x<rightSide+43)&&(this.y>topSide+1)&&(this.y<bottomSide-1)) {this.x = rightSide, this.vx = -this.vx}
-        if (this.x>rightSide+43) {this.x = rightSide+43, this.vx = 0, this.vy = 2, rotationSpeed = rotationSpeed + 0.03}
+        if (this.x>rightSide+43) {this.x = rightSide+43, this.vx = 0, this.vy = 2, rotationSpeed = rotationSpeed + 0.03,this.potential = this.potential+10}
         if ((holeMembrane==1)&&(this.y>bottomSide-9)&&(this.x<rightSide-20)) {this.vy=-this.vy,this.y=bottomSide-9}
         if ((this.y>=bottomSide+10)&&(this.x < rightSide - 5)) {this.y = bottomSide+11+random(2), this.x = rightSide-10+random(2), this.vy = 0, this.vx = 0}
         if ((this.y<topSide-10)&&(this.x >= rightSide - 33)) {this.y = topSide-10, this.vy = -this.vy}
@@ -195,6 +222,7 @@ class Hole extends Carrier {
     this.id = idin;
     this.others = oin;
     this.charge = +1;
+    this.hot = 0;
   }
   collide() {
     for (let i = this.id + 1; i < holes.length; i++) {
@@ -237,6 +265,20 @@ class Hole extends Carrier {
     if ((holeMembrane==1)&&(this.y>bottomSide-2)&&(this.vx<-0.2)) {this.vy=0,this.vx=this.vx/2}
   }
   display() {
+    if (this.hot==1) {
+      stroke(255,0);
+      fill(255,255,0);
+      ellipse(this.x, this.y, this.diameter+5, this.diameter+3);
+      if(frameCount % 120 === 0){
+        for (let l = 0; l < 10; l++) { 
+          pvx = random(-1,1);
+          pvy = random(-1,1);
+          let phonon = new Phonon(this.x, this.y,pvx,pvy, phonons);
+          phonons.push(phonon);
+        }
+        this.hot=0;
+      }
+    }
     stroke(255,0);
     fill(255,20);
     ellipse(this.x, this.y, this.diameter+10, this.diameter+10);
