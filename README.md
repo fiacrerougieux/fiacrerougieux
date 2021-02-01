@@ -1,6 +1,7 @@
 # Introduction to solar cells
 ## Welcome
-This is the repo of my site https://fiacrer.github.io/.
+This website describes the basics of solar cell physics using animations written in p5.js. This project is evolving and we are currently writting additional modules. The website can be accessed at:
+https://fiacrer.github.io/.
 
 
 ![Solar Cell](SolarCell.PNG)
