@@ -3,7 +3,7 @@ class Particle {
   constructor(xinit,yinit) {
     this.x = xinit;
     this.y = yinit;
-    this.diameter = 10;
+    this.diameter = 8;
     this.speed = 2;
   }
 }
@@ -19,6 +19,8 @@ class Photon extends Particle {
     this.contactWidth = 40;
     this.contactHeight = 20;
     this.monofacial = 0;
+    this.wavelength = 0;
+    this.diameter = 11;
   }
   move() {
     if ((this.y>topSide-2)&&(this.y<topSide+2)&&(random(1)>(1-this.reflectionProbabilityFraction))) {
@@ -56,12 +58,19 @@ class Photon extends Particle {
     this.y += this.vy;
   }
   display() {
-    // Here in the comment is sort of more physical way to represent photons as wave
-    // Not used at the moment as it lacks aesthetics
-    //if (photonAsParticle == 1) {
+    if (this.wavelength == 0) {
       stroke(255,0);
       fill(255,255);
       ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+    }
+
+    if (this.wavelength > 0) {
+      colorMode(HSB, 1400);
+      fill(1350-this.wavelength, 1400, 1400);
+      stroke(this.x, this.y-0.6, this.diameter, this.diameter);
+      ellipse(this.x, this.y-0.6, this.diameter, this.diameter);
+      colorMode(RGB, 255);
+    }
     //}
     //if (photonAsParticle == 0) {
     //  let direction = -PI/2+atan2(this.vy, this.vx)
@@ -207,8 +216,8 @@ class Electron extends Carrier {
       ellipse(this.x, this.y, this.diameter+5, this.diameter+3);
       if(frameCount % 120 === 0){
         for (let l = 0; l < 10; l++) { 
-          pvx = random(-1,1);
-          pvy = random(-1,1);
+          let pvx = random(-1,1);
+          let pvy = random(-1,1);
           let phonon = new Phonon(this.x, this.y,pvx,pvy, phonons);
           phonons.push(phonon);
         }
@@ -279,8 +288,8 @@ class Hole extends Carrier {
       ellipse(this.x, this.y, this.diameter+5, this.diameter+3);
       if(frameCount % 120 === 0){
         for (let l = 0; l < 10; l++) { 
-          pvx = random(-1,1);
-          pvy = random(-1,1);
+          let pvx = random(-1,1);
+          let pvy = random(-1,1);
           let phonon = new Phonon(this.x, this.y,pvx,pvy, phonons);
           phonons.push(phonon);
         }

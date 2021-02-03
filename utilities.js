@@ -30,6 +30,26 @@ function initialise(leftSideDividerInit=16, rightBufferInit = 60, topSideDivider
     monofacial = 0;
 }
 
+function generation (generationProbabilityFraction=0.04,bandgapWavelength=1100,hotCarriers=0) {
+    for (let i = photons.length-1; i >= 0; i--) {
+    photons[i].move();
+    photons[i].display();
+    if ((photons[i].y>topSide)&&(photons[i].y<bottomSide)&&(random(1)>(1-generationProbabilityFraction))&&(photons[i].wavelength<bandgapWavelength)) {
+        let electron = new Electron(photons[i].x,photons[i].y, k, electrons);       
+        if (hotCarriers==1) {
+          electron.hot = 1;
+        }
+        electrons.push(electron);
+        let hole = new Hole(photons[i].x,photons[i].y, k, holes);       
+        if (hotCarriers==1) {
+          hole.hot = 1;
+        }
+        holes.push(hole);
+        photons.splice(i,1);
+    }
+  }
+}
+
 function electronHoleElectronAuger(interactionStrength,interactionLength,recombinationProbabilityFraction) {
 // Electron Hole interaction
   for (let j = electrons.length-1; j >= 0; j--) {
