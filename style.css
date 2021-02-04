@@ -196,14 +196,14 @@ a:hover {
   overflow: hidden;
 }
 
-.dropdown a.active {
+.dropbtn .active {
   background-color: #4CAF50;
   color: white;
 }
 
 /* Dropdown button */
 .dropdown .dropbtn {
-  font-size: 16px;
+  font-size: 17px;
   border: none;
   outline: none;
   color: white;

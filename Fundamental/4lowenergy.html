@@ -12,10 +12,28 @@
 <div class="topnav" id="myTopnav">
   <a href="../index.html">Home</a>
   <a href="../Basics/1electron.html">Basics</a>
-  <a href="1why.html" class="active">Fundamental Losses</a>
-  <a href="../Recombination/1radiativerecombination.html">Recombination Losses</a>
-  <a href="../Resistive/1potential.html">Resistive Losses</a>
-  <a href="../Optical/1reflection.html">Optical Losses</a>
+  <div class="dropdown">
+    <button class="dropbtn">Fundamental Losses
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="../Fundamental/1why.html">Below Bandgap Losses</a>
+      <a href="../Fundamental/6smallbandgap.html">Thermalisation Losses</a>
+      <a href="../Fundamental/8emission.html">Emission Losses</a>
+      <a href="../Fundamental/9boltzmann.html">Boltzmann Losses</a>
+      <a href="../Fundamental/10carnot.html">Carnot Losses</a>
+    </div>
+  </div>
+  <div class="dropdown">
+  <button class="dropbtn">Practical Losses
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="../Recombination/1why.html">Recombination Losses</a>
+      <a href="../Resistive/1potential.html">Resistive Losses</a>
+      <a href="../Optical/1reflection.html">Optical Losses</a>
+    </div>
+  </div>
   <a href="../ressources.html">Ressources</a>
   <a href="../about.html">About</a>
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -23,7 +41,7 @@
   </a>
       <div class="w3-padding-16">
       <div class="progress w3-small w3-light-grey w3-round">
-        <div class="w3-container w3-round w3-green w3-small insideprogress" style="width:100%">100%</div>
+        <div class="w3-container w3-round w3-green w3-small insideprogress" style="width:30%">30%</div>
       </div>
     </div>
 </div>
