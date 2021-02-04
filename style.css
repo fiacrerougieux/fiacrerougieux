@@ -31,6 +31,11 @@ font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
      font: 10px;
 }
 
+.inner
+{
+    display: inline-block;
+}
+
 .box-dark {
     margin: 0px 20px 0px 20px;
     overflow:hidden;    
