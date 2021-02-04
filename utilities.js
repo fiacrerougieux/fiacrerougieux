@@ -520,7 +520,7 @@ function displayCellElements(displayAbsorber=1,displayElectronMembrane=1,display
 }
 
 // Legend
-function displayLegend(displayPhoton=1,displayElectron=1,displayHole=1,displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayPhonon=0,displayHotElectron=0,displayHotHole=0,displayAntiReflectionCoating=0) {
+function displayLegend(displayPhoton=1,displayElectron=1,displayHole=1,displayAbsorber=1,displayElectronMembrane=1,displayHoleMembrane=1,displayMetal=1,displayPhonon=0,displayHotElectron=0,displayHotHole=0,displayAntiReflectionCoating=0,displayAcceptor=0,displayDonor=0,displayElectronTrap=0,displayHoleTrap=0) {
   let offset = 10;
 
   let row1offset = 20;
@@ -583,6 +583,54 @@ function displayLegend(displayPhoton=1,displayElectron=1,displayHole=1,displayAb
       fill(255);
       stroke(0);
       text('Hot Hole', offset+row2offset+10, height-6);
+  }
+
+  if (displayAcceptor==1) {
+      stroke(255,60);
+      fill(255,50);
+      ellipse(offset+row2offset+30, height-30, 55, 55);
+      stroke(255);
+      fill(electronColor);
+      ellipse(offset+row2offset+30, height-30, 15, 15);
+      fill(255);
+      stroke(0);
+      text('Acceptor', offset+row2offset+60, height-26);
+  }
+
+  if (displayDonor==1) {
+      stroke(255,60);
+      fill(255,50);
+      ellipse(offset+row2offset+150, height-30, 55, 55);
+      stroke(255);
+      fill(holeColor);
+      ellipse(offset+row2offset+150, height-30, 15, 15);
+      fill(255);
+      stroke(0);
+      text('Donor', offset+row2offset+180, height-26);
+  }
+
+  if (displayElectronTrap==1) {
+      stroke(electronColor);
+      fill(255,50);
+      ellipse(offset+row2offset+30, height-30, 55, 55);
+      stroke(255);
+      fill(180);
+      ellipse(offset+row2offset+30, height-30, 15, 15);
+      fill(255);
+      stroke(0);
+      text('Electron Trap', offset+row2offset+60, height-26);
+  }
+
+  if (displayHoleTrap==1) {
+      stroke(holeColor);
+      fill(255,50);
+      ellipse(offset+row2offset+160, height-30, 55, 55);
+      stroke(255);
+      fill(180);
+      ellipse(offset+row2offset+160, height-30, 15, 15);
+      fill(255);
+      stroke(0);
+      text('Hole Trap', offset+row2offset+190, height-26);
   }
 
   let row3offset = 180;

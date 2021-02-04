@@ -25,7 +25,7 @@ function reset() {
 
 function draw() {
   displayCellElements(1,0,0,0);
-  displayLegend(1,1,1,0,0,0,0,1,1,1);
+  displayLegend(0,1,1,0,0,0,0,0,0,0,0,0,0,1,0);
   electronHoleInteraction(0.008,2.5,0,1);
   electronElectronTrapInteraction(0.008);
   for (let i = 0; i < photons.length; i++) {

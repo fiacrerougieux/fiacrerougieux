@@ -6,16 +6,16 @@ let donors = [];
 
 function setup() {
   initialise();
-  let electron = new Electron(leftSide+10,middle,k,electrons);       
-  electrons.push(electron);
   let donor = new Donor(middlex,middle);
   donors.push(donor);
+  let electron = new Electron(middlex,middle, k, electrons);       
+  electrons.push(electron);
 }
 
 function draw() {
   displayCellElements(1,0,0,0);
-  displayLegend(0,1,1,0,0,0,0);
-  electronDonorInteraction(0.008);
+  displayLegend(0,1,1,0,0,0,0,0,0,0,0,0,1);
+  electronDonorInteraction(0.00000000008);
   electrons.forEach(electron => {
     electron.collide();
     electron.move();
