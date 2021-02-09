@@ -5,24 +5,29 @@
 	<link href="http://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
-  <a href="../index.html">Home</a>
+  <a href="../../index.html">Home</a>
   <a href="1elementary.html">Elementary</a>
-  <a href="2totalistic.html">Totalistic</a> 
-  <a href="3continuous.html" class="active">Continuous</a> 
+  <a href="2totalistic.html" class="active">Totalistic</a> 
+  <a href="3continuous.html">Continuous</a> 
   <a href="4stochastic.html">Stochastic</a> 
 </div>
 
 <section class="box-dark">
-<h2>Continous Cellular Automata.</h2>
-<script type="text/javascript" src="3continuous.js"></script>
+<h2>Totalistic Cellular Automata.</h2>
+<script type="text/javascript" src="2totalistic.js"></script>
 <div id="canvasForHTML"></div>
 <p>Change rules here:</p>
-<input type="range" min="0" max="1000" value="333" class="slider" id="offsetSlider">
+<button id="rule600" class="restart">600</button>
+<button id="rule777" class="restart">777</button>
+<button id="rule912" class="restart">912</button>
+<button id="rule993" class="restart">993</button>
+<button id="rule1074" class="restart">1074</button>
+<button id="rule1083" class="restart">1083</button>
 <p></p>
 <button id="start" class="restart">Restart</button>
 <p>Please see <a href="https://www.wolframscience.com/nks/">A New Kind of Science from Stephen Wolfram</a>.</p>
