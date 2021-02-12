@@ -47,6 +47,11 @@ ul{
   margin: auto;
 }
 
+ol{
+  max-width: 600px;
+  margin: auto;
+}
+
 #navbar {
   overflow: hidden;
   background-color: #333;
@@ -72,6 +77,8 @@ ul{
   color: white;
 }
 
+html { scroll-behavior: smooth; }
+
 .content {
   padding: 16px;
 }
@@ -94,9 +101,13 @@ ul{
   border-radius: 5%;
 }
 
+.white {
+  background: rgb(255, 255, 255);
+}
 
-
-
+.round {
+  border-radius: 50%;
+}
 
 
 
@@ -151,3 +162,4 @@ ul{
         text-align: left;
     }
 }
+
