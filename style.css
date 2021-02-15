@@ -172,3 +172,8 @@ html { scroll-behavior: smooth; }
   position: fixed;
   z-index:-5;
 }
+
+.responsive {
+  max-width: 100%;
+  height: auto;
+}
