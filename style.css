@@ -178,3 +178,9 @@ html { scroll-behavior: smooth; }
   max-width: 500px;
   height: auto;
 }
+
+.responsive-small {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
