@@ -1,190 +1,619 @@
-body{
-        margin: 0;
-        background: #141414;
-        font-family: Vollkorn;
-        padding-top: 0;
-        text-align: justify;
-        text-justify: inter-word;
-        color: #d2d4d9;
+/* === Base & Typography === */
+body {
+margin: 0;
+padding-top: 60px; /* Account for fixed navbar */
+font-family: 'Open Sans', sans-serif; /* Modern, clean font */
+color: #e0e0e0; /* Light grey text for dark background */
+background-color: #0a0a1a; /* Dark blue/purple base */
+text-align: left; /* Default alignment */
+line-height: 1.6;
+overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-#heading{
-        color: #d2d4d9;
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Open Sans', sans-serif; /* Consistent heading font */
+font-weight: 700; /* Bold headings */
+color: #ffffff; /* White headings */
+text-align: center;
+margin-top: 0;
+margin-bottom: 20px;
+text-shadow: 0 0 8px rgba(180, 180, 255, 0.5); /* Subtle glow */
+}
 
+h1.main-title {
+font-size: 3.5em;
+margin-bottom: 10px;
+color: #ffffff;
+background: linear-gradient(45deg, #ff8a00, #e52e71); /* Example gradient */
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+h2.section-title {
+font-size: 2.5em;
+margin-bottom: 40px;
+position: relative;
+display: inline-block; /* Allows centering and underline */
+padding-bottom: 10px;
+}
+
+/* Underline effect for section titles */
+h2.section-title::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 60px;
+height: 4px;
+background: linear-gradient(90deg, #8a2be2, #00ffff); /* Purple to cyan gradient */
+border-radius: 2px;
+box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Cyan glow */
+}
+
+p {
+margin-bottom: 15px;
+font-size: 1.1em;
+color: #c5c5dd; /* Slightly lighter than body text */
+}
+
+p.lead {
+font-size: 1.4em;
+font-weight: 300;
+color: #d0d0f0;
+}
+
+a {
+color: #87cefa; /* Light sky blue for links */
+text-decoration: none;
+transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover, a:focus {
+color: #ffffff;
+text-decoration: none;
+text-shadow: 0 0 10px rgba(135, 206, 250, 0.8); /* Glow on hover */
+}
+
+.link-glow {
+color: #00ffff; /* Cyan */
+font-weight: bold;
+}
+.link-glow:hover {
+color: #ffffff;
+text-shadow: 0 0 12px rgba(0, 255, 255, 0.9);
+}
+
+hr.section-divider {
+border: 0;
+height: 1px;
+background-image: linear-gradient(to right, rgba(138, 43, 226, 0), rgba(138, 43, 226, 0.75), rgba(138, 43, 226, 0)); /* Gradient hr */
+margin: 60px auto;
+width: 80%;
+}
+
+/* === Particles Background === */
+#particles-js {
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: -1; /* Place behind content */
+background-color: #0a0a1a; /* Match body background */
+/* Gradient background as fallback or enhancement */
+background-image: radial-gradient(circle at top left, rgba(46, 24, 112, 0.8), transparent 50%),
+radial-gradient(circle at bottom right, rgba(10, 10, 50, 0.9), transparent 40%);
+}
+
+/* === Layout & Sections === */
+.content-wrapper {
+position: relative; /* Needed for z-index layering with particles */
+z-index: 1;
+padding-top: 20px; /* Add some space below navbar */
+}
+
+.container {
+max-width: 1100px; /* Slightly wider container */
 }
 
 section {
-  background: #141414;
+padding: 80px 0; /* Generous padding for sections */
+background: rgba(10, 10, 30, 0.3); /* Very subtle transparent background */
+margin-bottom: 0; /* Remove default section margin if any */
+position: relative; /* For potential pseudo-elements */
+overflow: hidden; /* Hide overflow from effects */
 }
 
-h1 {
-color: #d2d4d9;
-font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
-        font: 40px;
-                text-align: center;
+/* Alternate section background for visual rhythm */
+section:nth-child(odd) {
+background: rgba(20, 20, 40, 0.4);
 }
 
-h2 {
-color: #d2d4d9;
-font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
-     font: 12px;
-             text-align: center;
-}
-
-h3 {
-color: #d2d4d9;
-font-family:Helvetica Neue,Helvetica,Arial,sans-serif;
-     font: 10px;
-             text-align: center;
-}
-
-#narrow {  max-width: 600px;
-  margin: auto;
-          text-align: justify;
-        text-justify: inter-word;
-}
-
-p {text-align: center;}
-
-ul{
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin: auto;
-}
-
-ol{
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin: auto;
-}
-
-#navbar {
-  overflow: hidden;
-  background-color: #333;
-}
-
-#navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-#navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-#navbar a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-html { scroll-behavior: smooth; }
-
-.content {
-  padding: 16px;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.sticky + .content {
-  padding-top: 60px;
-}
-
-.aligncenter {
-    text-align: center;
-}
-
-.rounded {
-  border-radius: 5%;
-}
-
-.white {
-  background: rgb(255, 255, 255);
-}
-
-.round {
-  border-radius: 50%;
-}
-
-
-
-
+/* === Navigation Bar === */
 .topnav {
-  overflow: hidden;
-  background-color: #333;
+background-color: rgba(20, 20, 40, 0.9); /* Semi-transparent dark blue */
+backdrop-filter: blur(10px); /* Frosted glass effect */
+-webkit-backdrop-filter: blur(10px);
+overflow: hidden;
+position: fixed; /* Make navbar fixed */
+top: 0;
+width: 100%;
+z-index: 1000; /* Ensure navbar stays on top */
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+border-bottom: 1px solid rgba(138, 43, 226, 0.3); /* Subtle purple border */
+transition: background-color 0.3s ease;
+}
+
+/* Remove the .sticky class functionality as nav is always fixed */
+/* Keep .sticky styles just in case JS adds it */
+.sticky {
+position: fixed;
+top: 0;
+width: 100%;
 }
 
 .topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+float: left;
+display: block;
+color: #d0d0f0;
+text-align: center;
+padding: 18px 20px; /* Slightly more padding */
+text-decoration: none;
+font-size: 1.1em; /* Slightly larger font */
+font-weight: 400;
+transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+position: relative; /* For hover effect */
+}
+
+/* Hover effect - underline grows from center */
+.topnav a::before {
+content: "";
+position: absolute;
+width: 0;
+height: 3px;
+bottom: 5px; /* Position of the line */
+left: 50%;
+transform: translateX(-50%);
+background-color: #00ffff; /* Cyan color */
+transition: width 0.3s ease-in-out;
+box-shadow: 0 0 8px rgba(0, 255, 255, 0.7);
+}
+
+.topnav a:hover::before,
+.topnav a.active::before { /* Apply to active link too */
+width: 60%; /* Width of the underline on hover/active */
 }
 
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+background-color: rgba(138, 43, 226, 0.2); /* Subtle purple on hover */
+color: #ffffff;
+text-shadow: 0 0 5px rgba(200, 200, 255, 0.6);
 }
 
+/* Active link style - stronger color, already handled by ::before */
 .topnav a.active {
-  background-color: #4CAF50;
-  color: white;
+color: #ffffff; /* White text for active */
+background-color: rgba(138, 43, 226, 0.3); /* Slightly stronger purple */
 }
 
 .topnav .icon {
-  display: none;
+display: none;
+color: #ffffff; /* Ensure icon is visible */
 }
 
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
+/* === Home Section === */
+#home {
+min-height: 80vh; /* Make hero section taller */
+display: flex;
+align-items: center;
+justify-content: center;
+background: transparent; /* Remove section background if particles are enough */
+padding-top: 100px; /* Adjust padding */
+padding-bottom: 100px;
 }
 
-@media screen and (max-width: 600px){
-    .topnav.responsive{position: fixed;}
-    .topnav.responsive .icon{
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .topnav.responsive a{
-        float: none;
-        display: block;
-        text-align: left;
-    }
+#home .container {
+position: relative;
+z-index: 2; /* Ensure text is above particles */
 }
 
-.bg-image {
-  height: 50%;
-  position: fixed;
-  z-index:-5;
+.logo-container {
+margin: 30px 0;
 }
+
+.responsive-logo {
+max-width: 200px; /* Control logo size */
+height: auto;
+opacity: 0.9;
+filter: drop-shadow(0 0 15px rgba(200, 200, 255, 0.5));
+}
+
+.intro-text {
+max-width: 700px;
+margin-left: auto;
+margin-right: auto;
+font-size: 1.2em;
+}
+
+@keyframes titleGlow {
+from {
+text-shadow: 0 0 10px rgba(255, 138, 0, 0.6), 0 0 20px rgba(255, 138, 0, 0.4), 0 0 30px rgba(229, 46, 113, 0.3);
+}
+to {
+text-shadow: 0 0 20px rgba(255, 138, 0, 0.8), 0 0 30px rgba(255, 138, 0, 0.6), 0 0 40px rgba(229, 46, 113, 0.5);
+}
+}
+
+/* === Team Section === */
+.team-grid {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 30px; /* Spacing between team members */
+}
+
+.team-member {
+background-color: rgba(30, 30, 60, 0.7); /* Card background */
+padding: 25px;
+border-radius: 10px;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+border: 1px solid rgba(138, 43, 226, 0.4); /* Subtle border */
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+flex-basis: calc(25% - 30px); /* Adjust basis for grid */
+min-width: 220px; /* Minimum width for smaller screens */
+}
+
+.team-member:hover {
+transform: translateY(-10px) scale(1.03); /* Lift effect */
+box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3), 0 0 20px rgba(0, 255, 255, 0.2); /* Glow effect on hover */
+}
+
+.team-member img.round {
+width: 130px; /* Fixed image size */
+height: 130px;
+object-fit: cover; /* Ensure image covers the area */
+border-radius: 50%;
+margin-bottom: 15px;
+border: 3px solid rgba(0, 255, 255, 0.6); /* Cyan border */
+box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.team-member h3 {
+font-size: 1.3em;
+margin-bottom: 5px;
+color: #ffffff;
+text-shadow: none; /* Remove general glow if too much */
+}
+
+.team-member p {
+font-size: 1em;
+color: #a0a0c0; /* Subdued text color */
+margin-bottom: 0;
+}
+
+/* === Research Section === */
+.research-intro {
+font-size: 1.2em;
+text-align: center;
+max-width: 800px;
+margin: 20px auto 30px auto;
+}
+.research-goals {
+max-width: 700px;
+margin: 0 auto 40px auto;
+list-style-position: inside;
+padding-left: 0;
+}
+.research-goals li {
+margin-bottom: 10px;
+font-size: 1.1em;
+}
+#research img.responsive {
+border-radius: 8px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+margin-bottom: 30px;
+border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+#research h3 {
+color: #00ffff; /* Cyan for subheadings */
+text-align: left;
+margin-bottom: 15px;
+font-size: 1.5em;
+text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+}
+#research ul {
+list-style: none;
+padding-left: 0;
+text-align: left;
+}
+#research ul li {
+margin-bottom: 8px;
+position: relative;
+padding-left: 20px;
+}
+/* Custom bullet points */
+#research ul li::before {
+content: '⚡'; /* Or use FontAwesome icon */
+color: #ffc107; /* Amber/gold color */
+position: absolute;
+left: 0;
+top: 0;
+font-size: 0.9em;
+}
+
+.collaborator-logos, .funding-logos {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+gap: 40px; /* Spacing between logos */
+margin-top: 30px;
+}
+
+.collaborator-logos img, .funding-logos img {
+max-height: 60px; /* Control logo height */
+width: auto; /* Maintain aspect ratio */
+max-width: 150px; /* Max width */
+filter: grayscale(30%) brightness(1.2); /* Slightly desaturated and brightened */
+transition: filter 0.3s ease, transform 0.3s ease;
+opacity: 0.8;
+}
+.collaborator-logos img.white, .funding-logos img.white {
+/* If white background images need specific handling */
+background-color: #e0e0e0; /* Example: light grey background */
+padding: 5px;
+border-radius: 4px;
+}
+
+.collaborator-logos img:hover, .funding-logos img:hover {
+filter: grayscale(0%) brightness(1);
+transform: scale(1.1);
+opacity: 1;
+}
+
+/* === Publications Section === */
+#publications img.responsive {
+border-radius: 8px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+margin-bottom: 30px;
+border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+/* === Teaching Section === */
+#teaching img.responsive {
+border-radius: 8px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+margin-bottom: 30px;
+border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+#teaching h3 {
+color: #00ffff; /* Cyan */
+margin-top: 20px;
+}
+
+/* === Buttons === */
+.btn {
+padding: 12px 30px;
+border-radius: 25px; /* Pill shape */
+font-weight: 600;
+font-size: 1.1em;
+text-transform: uppercase;
+letter-spacing: 1px;
+border: none;
+transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+cursor: pointer;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+background-color: #8a2be2; /* Purple */
+color: #ffffff;
+}
+.btn-primary:hover {
+background-color: #9932cc; /* Darker purple */
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+}
+
+.btn-secondary {
+background-color: #00ffff; /* Cyan */
+color: #0a0a1a; /* Dark text for contrast */
+}
+.btn-secondary:hover {
+background-color: #40e0d0; /* Turquoise */
+color: #000000;
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+}
+
+/* Button Glow Effect */
+.btn-glow {
+position: relative;
+overflow: hidden;
+}
+.btn-glow::before {
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+width: 300%; /* Large pseudo-element for radial glow */
+height: 300%;
+background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+border-radius: 50%;
+transform: translate(-50%, -50%) scale(0);
+transition: transform 0.5s ease;
+opacity: 0;
+z-index: 0; /* Behind text */
+}
+
+.btn-glow:hover::before {
+transform: translate(-50%, -50%) scale(1);
+opacity: 1;
+transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.btn-glow > * { /* Ensure button content is above glow */
+position: relative;
+z-index: 1;
+}
+
+/* === Footer === */
+footer {
+background-color: rgba(10, 10, 25, 0.8); /* Slightly darker footer */
+color: #b0b0c0;
+padding: 60px 0 40px 0;
+margin-top: 40px; /* Space above footer */
+border-top: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+footer h2.section-title {
+color: #e0e0e0;
+margin-bottom: 30px;
+}
+footer h2.section-title::after{
+background: linear-gradient(90deg, #8a2be2, #00ffff);
+box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+footer h4 {
+color: #00ffff; /* Cyan */
+margin-bottom: 15px;
+font-size: 1.3em;
+}
+
+footer p {
+color: #b0b0d0;
+margin-bottom: 10px;
+}
+
+footer a {
+color: #87cefa; /* Light sky blue /
+}
+footer a:hover {
+color: #ffffff;
+}
+footer .location-icon {
+font-size: 50px;
+color: #ff8a00; / Orange icon /
+transition: transform 0.3s ease, color 0.3s ease;
+}
+footer .location-icon:hover {
+color: #ffc107; / Lighter orange */
+transform: scale(1.1);
+}
+
+footer .copyright {
+margin-top: 40px;
+font-size: 0.9em;
+color: #8888a0;
+}
+
+.twitter-share-button {
+margin-top: 15px;
+}
+
+/* === Utilities === */
+.aligncenter { text-align: center; }
+.text-center { text-align: center; }
+
+.rounded { border-radius: 8px; } /* Slightly softer radius */
+.round { border-radius: 50%; }
+
+.white { background-color: #ffffff; color: #141414; padding: 5px; border-radius: 4px; } /* Ensure visibility on dark bg */
 
 .responsive {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
+width: 100%;
+max-width: 500px; /* Maintain max-width /
+height: auto;
+display: block; / Center images easily */
+margin-left: auto;
+margin-right: auto;
 }
 
 .responsive-small {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
+width: 100%;
+max-width: 180px; /* Smaller max-width for logos etc. /
+height: auto;
+vertical-align: middle; /* Align logos better */
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 991px) { /* Medium devices (tablets, less than 992px) */
+.team-member {
+flex-basis: calc(50% - 20px); /* 2 columns */
+gap: 20px;
+}
+#research .col-md-6 {
+margin-bottom: 30px; /* Add space between columns on smaller screens */
+}
+footer .col-md-6 {
+margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) { /* Small devices (landscape phones, less than 768px) */
+body { padding-top: 58px; } /* Adjust for slightly smaller nav potentially */
+h1.main-title { font-size: 2.8em; }
+h2.section-title { font-size: 2em; }
+p.lead { font-size: 1.2em; }
+section { padding: 60px 0; }
+
+.topnav a { padding: 15px 16px; font-size: 1em; }
+
+.team-member {
+    flex-basis: calc(50% - 20px); /* Still 2 columns, maybe adjust min-width later */
+}
+}
+
+@media screen and (max-width: 600px) { /* Extra small devices (phones, less than 600px) */
+.topnav a:not(:first-child) {display: none;}
+.topnav a.icon {
+float: right;
+display: block;
+padding: 14px 16px; /* Adjust icon padding if needed */
+}
+
+.topnav.responsive {position: fixed; background-color: rgba(10, 10, 25, 0.95);} /* More opaque when open */
+.topnav.responsive .icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.topnav.responsive a {
+  float: none;
+  display: block;
+  text-align: left;
+   padding: 15px 20px;
+}
+ .topnav.responsive a::before { /* Adjust mobile nav hover line */
+     bottom: 2px;
+     height: 2px;
+     left: 10px; /* Align left */
+     transform: translateX(0);
+ }
+  .topnav.responsive a:hover::before,
+  .topnav.responsive a.active::before {
+     width: 40%;
+  }
+
+
+#home { min-height: 60vh; padding-top: 80px; padding-bottom: 60px;}
+h1.main-title { font-size: 2.2em; }
+h2.section-title { font-size: 1.8em; margin-bottom: 30px;}
+
+.team-member {
+    flex-basis: calc(100% - 20px); /* 1 column */
+}
+
+.collaborator-logos img, .funding-logos img {
+    max-height: 45px;
+    gap: 25px;
+}
+}
+
+footer .col-md-6 {
+    text-align: center; /* Center footer columns */
 }
