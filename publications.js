@@ -60,13 +60,15 @@ function parseBibTeX(bibtex) {
 // Group entries by year
 function groupByYear(entries) {
   const byYear = {};
-  
+
   for (const entry of entries) {
-    const year = entry.year || 'Unknown';
-    if (!byYear[year]) byYear[year] = [];
-    byYear[year].push(entry);
+    const year = entry.year;
+    if (year) { // Only add entries with a valid year
+      if (!byYear[year]) byYear[year] = [];
+      byYear[year].push(entry);
+    }
   }
-  
+
   return byYear;
 }
 
