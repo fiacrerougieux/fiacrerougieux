@@ -2,7 +2,7 @@
 
 I am a researcher and builder at the intersection of solar energy, educational infrastructure, and applied AI.
 
-**Day job**: Academic at [UNSW SPREE]([https://www.spree.unsw.edu.au/](https://www.unsw.edu.au/engineering/our-schools/photovoltaic-and-renewable-energy-engineering)) — photovoltaics research, PV digital twins, multimodal ML on inverter telemetry and aerial imagery.
+**Day job**: Academic at [UNSW SPREE](https://www.unsw.edu.au/engineering/our-schools/photovoltaic-and-renewable-energy-engineering) — photovoltaics research, PV digital twins, multimodal ML on inverter telemetry and aerial imagery.
 
 **Side projects**: 
 [Mappy](https://mappyintelligence.com/) — a graph-based curriculum intelligence platform, in production for almost a year.
